@@ -35,12 +35,13 @@
                         <input type="hidden" name="command" value="register" />
                         <input type="text" name="username" placeholder="Username"/>
                         <input type="password" name="password" placeholder="Password"/>
-                        <input type="text" name="firstname" placeholder="First name"/>
-                        <input type="text" name="lastname" placeholder="Last name"/>
-                        <input type="number" name="phonenumber" placeholder="Phone number"/>
+                        <input type="text" name="first_name" placeholder="First name"/>
+                        <input type="text" name="last_name" placeholder="Last name"/>
+                        <input type="number" name="phone_number" placeholder="Phone number"/>
                         <input type="email" name="email" placeholder="E-mail"/>
                         <button type="submit" class="btn btn-default">Signup</button>
                     </form>
+                    <p style="color:#ff0000">${username_error}</p>
                 </div><!--/sign up form-->
             </div>
         </div>

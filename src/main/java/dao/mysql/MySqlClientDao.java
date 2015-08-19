@@ -71,7 +71,8 @@ public class MySqlClientDao extends AbstractJDBCDao<Client, Integer> implements 
             statement.setString(2, object.getPassword());
             statement.setString(3, object.getFirstName());
             statement.setString(4, object.getLastName());
-            statement.setString(5, object.getEmail());
+            statement.setString(5, object.getPhoneNumber());
+            statement.setString(6, object.getEmail());
         } catch (Exception e) {
             throw new PersistException(e);
         }
@@ -84,8 +85,9 @@ public class MySqlClientDao extends AbstractJDBCDao<Client, Integer> implements 
             statement.setString(2, object.getPassword());
             statement.setString(3, object.getFirstName());
             statement.setString(4, object.getLastName());
-            statement.setString(5, object.getEmail());
-            statement.setInt(6, object.getId());
+            statement.setString(5, object.getPhoneNumber());
+            statement.setString(6, object.getEmail());
+            statement.setInt(7, object.getId());
         } catch (Exception e) {
             throw new PersistException(e);
         }
@@ -98,7 +100,6 @@ public class MySqlClientDao extends AbstractJDBCDao<Client, Integer> implements 
         Client c = new Client();
         return persist(c);
     }
-
 
 
     @Override

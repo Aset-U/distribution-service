@@ -9,6 +9,7 @@ import dao.mysql.AbstractJDBCDao;
 import dao.mysql.MySqlClientDao;
 import dao.mysql.MySqlDaoFactory;
 import entity.Client;
+import resource.ConfigurationManager;
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClientRegisterAction implements Action{
-    ActionResult registration = new ActionResult("client_registration");
+    private String page = ConfigurationManager.getProperty("page.login");
+    ActionResult registration = new ActionResult(page);
     ActionResult welcome = new ActionResult("home", true);
 
     @Override
@@ -36,15 +38,14 @@ public class ClientRegisterAction implements Action{
 
         try(Connection connection = (Connection) factory.getContext())
         {
-          /*  clientDao = (MySqlClientDao) factory.getDao(connection,Client.class);
+           clientDao = (MySqlClientDao) factory.getDao(connection,Client.class);
             List<Client> clients = new ArrayList<>(clientDao.getAll());
             for (Client client : clients) {
                 if (client.getUsername().equals(username)) {
                     request.setAttribute("username_error", "Пользователь с таким именем уже существует!");
                     return registration;
                 }
-            }*/
-
+            }
             Client newClient = clientDao.create();
             newClient.setUsername(username);
             newClient.setPassword(password);
@@ -60,8 +61,6 @@ public class ClientRegisterAction implements Action{
             e.printStackTrace();
         }
 
-
-        HttpSession session = request.getSession();
         return welcome;
     }
 }
