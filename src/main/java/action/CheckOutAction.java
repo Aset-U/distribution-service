@@ -1,0 +1,57 @@
+package action;
+
+
+import dao.DaoFactory;
+import dao.ShopDao;
+import dao.mysql.MySqlDaoFactory;
+import dao.mysql.MySqlOrderDao;
+import entity.*;
+import resource.ConfigurationManager;
+import resource.MessageManager;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.*;
+
+public class CheckOutAction implements Action{
+
+    private String checkoutPage = ConfigurationManager.getProperty("page.checkout");
+    private String cartPage = ConfigurationManager.getProperty("page.cart");
+    private ActionResult result = new ActionResult(checkoutPage);
+
+    @Override
+    public ActionResult execute(HttpServletRequest request) {
+        DaoFactory factory = MySqlDaoFactory.getInstance();
+        HttpSession session = request.getSession();
+
+        Order cart = (Order) session.getAttribute("cart");
+
+        if (cart == null || cart.getItems().size() == 0) {
+            result = new ActionResult(cartPage);
+            request.setAttribute("warning", "Warning! your shopping cart is empty");
+            return result;
+        }
+        try(Connection connection = (Connection) factory.getContext())
+        {
+            Client client = (Client) session.getAttribute("client");
+
+            if (cart != null) {
+                Order order = new Order();
+                order.setId(cart.getId());
+                order.setClient(client);
+                order.setItems(cart.getItems());
+                ShopDao shopDao = (ShopDao) factory.getDao(connection, Shop.class);
+                List<Shop> shops = shopDao.getShopsByManager(client.getId());
+                session.setAttribute("checkout", order);
+                session.setAttribute("shops", shops);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+}
