@@ -22,7 +22,7 @@ import java.util.List;
 public class ClientRegisterAction implements Action{
     private String page = ConfigurationManager.getProperty("page.login");
     ActionResult registration = new ActionResult(page);
-    ActionResult welcome = new ActionResult("home", true);
+    ActionResult home = new ActionResult("home", true);
 
     @Override
     public ActionResult execute(HttpServletRequest request) throws ActionException {
@@ -42,7 +42,7 @@ public class ClientRegisterAction implements Action{
             List<Client> clients = new ArrayList<>(clientDao.getAll());
             for (Client client : clients) {
                 if (client.getUsername().equals(username)) {
-                    request.setAttribute("username_error", "Пользователь с таким именем уже существует!");
+                    request.setAttribute("username_error", "A user with this username already exists!");
                     return registration;
                 }
             }
@@ -61,6 +61,6 @@ public class ClientRegisterAction implements Action{
             e.printStackTrace();
         }
 
-        return welcome;
+        return home;
     }
 }

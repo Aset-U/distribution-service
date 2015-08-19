@@ -35,9 +35,11 @@
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
+                            <c:if test="${client != null}">
                             <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
                             <li><a href="/controller?page=checkout"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                             <li><a href="/controller?command=cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                            </c:if>
                             <c:choose>
                                 <c:when test="${clientSigned != null}">
                                     <li><a href="/controller?command=logout"><i class="fa fa-lock"></i> Logout</a></li>
@@ -71,10 +73,11 @@
                             <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
                                     <li><a href="/controller?page=all-products">Products</a></li>
+                                    <c:if test="${client != null}">
                                     <li><a href="/controller?command=orders">My orders</a></li>
                                     <li><a href="/controller?page=checkout">Checkout</a></li>
                                     <li><a href="/controller?command=cart">Cart</a></li>
-
+                                    </c:if>
                                     <c:choose>
                                         <c:when test="${clientSigned != null}">
                                             <li><a href="/controller?command=logout">Logout</a></li>

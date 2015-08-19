@@ -22,16 +22,13 @@ public class ShowCartAction implements Action{
     public ActionResult execute(HttpServletRequest request) throws ActionException {
 
         HttpSession session = request.getSession();
-        /*Client client = (Client) session.getAttribute("client");
+        Client client = (Client) session.getAttribute("client");
 
         if (client == null) {
-            request.setAttribute("errorLoginPassMessage",
-                    MessageManager.getProperty("message.loginerror"));
-
             page = ConfigurationManager.getProperty("page.login");
             ActionResult login = new ActionResult(page);
             return login;
-        }*/
+        }
 
         String clear = request.getParameter("clear");
 
