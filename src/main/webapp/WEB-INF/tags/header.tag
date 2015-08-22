@@ -36,7 +36,7 @@
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
                             <c:if test="${client != null}">
-                            <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
+                            <li><a href="/controller?page=account"><i class="fa fa-user"></i> Account</a></li>
                             <li><a href="/controller?page=checkout"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                             <li><a href="/controller?command=cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
                             </c:if>

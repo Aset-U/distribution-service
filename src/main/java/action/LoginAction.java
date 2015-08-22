@@ -2,6 +2,7 @@ package action;
 
 
 import dao.DaoFactory;
+import dao.ShopDao;
 import dao.UserDao;
 import dao.mysql.MySqlDaoFactory;
 import dao.mysql.MySqlOrderDao;
@@ -58,18 +59,21 @@ public class LoginAction implements Action{
             return forwarderForm;
         }
 
-        initializeOrdersOfClient((Client) user, session);
+        initializeClient((Client) user, session);
         session.setAttribute("client", user);
 
         return result;
     }
 
-    private void initializeOrdersOfClient(Client client, HttpSession session) {
+    private void initializeClient(Client client, HttpSession session) {
         DaoFactory factory = MySqlDaoFactory.getInstance();
         try(Connection connection = (Connection) factory.getContext())
         {
             MySqlOrderDao orderDao = (MySqlOrderDao) factory.getDao(connection, Order.class);
             MySqlOrderItemDao orderItemDao = (MySqlOrderItemDao) factory.getDao(connection, OrderItem.class);
+            ShopDao shopDao = (ShopDao) factory.getDao(connection, Shop.class);
+            List<Shop> shops = shopDao.getShopsByManager(client.getId());
+
             Order cart = null;
             List<Order> orders = orderDao.getByClientId(client.getId());
 
@@ -89,7 +93,7 @@ public class LoginAction implements Action{
                 }
 
             }
-
+            session.setAttribute("shops", shops);
 
         }catch (SQLException e) {
             e.printStackTrace();

@@ -42,10 +42,7 @@ public class CheckOutAction implements Action{
                 order.setId(cart.getId());
                 order.setClient(client);
                 order.setItems(cart.getItems());
-                ShopDao shopDao = (ShopDao) factory.getDao(connection, Shop.class);
-                List<Shop> shops = shopDao.getShopsByManager(client.getId());
                 session.setAttribute("checkout", order);
-                session.setAttribute("shops", shops);
             }
 
         } catch (SQLException e) {
