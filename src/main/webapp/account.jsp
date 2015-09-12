@@ -22,11 +22,13 @@
                 </tr>
                 <tr>
                     <td>Password : </td>
-                    <td>                        <form action="/controller" method="GET">
-                        <input type="password" value="${client.password}"/>
-                        <input  type="hidden" name="page" value="all-products"/>
-                        <input  type="submit" value="change"/>
-                    </form></td>
+                    <td>
+                        <form action="/controller" method="GET">
+                            <input type="password" value="${client.password}"/>
+                            <input  type="hidden" name="page" value="change-password"/>
+                            <input  type="submit" value="change"/>
+                        </form>
+                    </td>
                     <td>
                     </td>
                 </tr>
@@ -43,7 +45,7 @@
                     </td>
                     <td>
                         <form action="/controller" method="GET">
-                            <input  type="hidden" name="page" value="all-products"/>
+                            <input  type="hidden" name="command" value="shopList"/>
                             <input  type="submit" value="edit"/>
                         </form>
                     </td>
@@ -53,4 +55,5 @@
         </div>
     </div>
 </body>
+
 </html>

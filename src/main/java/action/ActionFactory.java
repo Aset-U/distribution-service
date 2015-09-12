@@ -25,6 +25,9 @@ public class ActionFactory {
         actions.put("confirmOrder", new ConfirmOrderAction());
         actions.put("order", new ShowOrderAction());
         actions.put("orders", new ShowAllOrdersAction());
+        actions.put("changeClientPassword", new ChangeClientPasswordAction());
+        actions.put("shopList", new ShowClientShopsAction());
+        actions.put("addClientShop", new AddShopAction());
     }
 
     public static Action getAction(HttpServletRequest request) {

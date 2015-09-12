@@ -32,7 +32,6 @@ public class ShowOrderAction implements Action {
             OrderDao orderDao = (OrderDao) factory.getDao(connection, Order.class);
 
             Order order = orderDao.getByPK(id, true);
-            System.out.println(order.getItems());
             HttpSession session = request.getSession();
             session.setAttribute("clientOrder", order);
         }catch (SQLException e) {
