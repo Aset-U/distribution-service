@@ -15,9 +15,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class AddShopAction implements Action {
-    private String shopsInfoPage =  ConfigurationManager.getProperty("page.clientShopsInfo");
     private String shopEditPage =  ConfigurationManager.getProperty("page.editShop");
-    private ActionResult result = new ActionResult(shopsInfoPage);
+    private ActionResult result = new ActionResult(shopEditPage);
 
     @Override
     public ActionResult execute(HttpServletRequest request) {

@@ -28,7 +28,7 @@
                 <tr>
                     <td>
                         <input type="hidden" name="command" value="addClientShop"/>
-                        <input type="submit" value="change"/>
+                        <input type="submit" value="add"/>
                     </td>
                     <td></td>
                     <td></td>

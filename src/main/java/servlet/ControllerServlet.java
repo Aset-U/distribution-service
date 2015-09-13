@@ -31,7 +31,7 @@ public class ControllerServlet extends HttpServlet {
 
         String page = null;
 
-        Action action = ActionFactory.getAction(req);
+        Action action = ActionFactory.getInstance().getAction(req);
 
         ActionResult result = action.execute(req);
 
@@ -68,7 +68,7 @@ public class ControllerServlet extends HttpServlet {
 
         }
        else if (query.contains("command")){
-            Action action = ActionFactory.getAction(req);
+            Action action = ActionFactory.getInstance().getAction(req);
             result = action.execute(req); }
 
         String page = result.getView();

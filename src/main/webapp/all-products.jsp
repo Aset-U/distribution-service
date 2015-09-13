@@ -8,9 +8,8 @@
 <t:header/>
 <section>
   <t:category/>
-
+      <div class="col-sm-6">
       <c:forEach var="product" items="${allProducts}">
-
         <div class="col-sm-4">
           <div class="product-image-wrapper">
             <div class="single-products">
@@ -38,8 +37,7 @@
             </div>
           </div>
         </div>
-
       </c:forEach>
-
+      </div>
 </body>
 </html>
