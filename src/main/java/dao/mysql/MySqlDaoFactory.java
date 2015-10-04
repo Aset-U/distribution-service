@@ -20,7 +20,7 @@ public class MySqlDaoFactory implements DaoFactory<Connection> {
 
     private String user = "root";//Логин пользователя
     private String password = "root";//Пароль пользователя
-    private String url = "jdbc:mysql://localhost:3306/distribution_company"; //URL адрес
+    private String url = "jdbc:mysql://localhost:3306/distribution"; //URL адрес
     private String driver = "com.mysql.jdbc.Driver";//Имя драйвера
     private Map<Class, DaoCreator> creators;
 

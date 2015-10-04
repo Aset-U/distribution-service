@@ -21,25 +21,25 @@ public class MySqlOrderDao extends AbstractJDBCDao<Order, Integer> implements Or
 
     @Override
     public String getSelectQuery() {
-        return "SELECT id, status, client_id, shop_id FROM orders ";
+        return "SELECT id, status, client_id, shop_id FROM distribution.order ";// дописать имя БД к таблице
     }
 
     @Override
     public String getCreateQuery() {
-        return "INSERT INTO orders (status, client_id, shop_id) \n" +
+        return "INSERT INTO distribution.order (status, client_id, shop_id) \n" +
                 "VALUES (?, ?, ?);";
     }
 
     @Override
     public String getUpdateQuery() {
-        return  "UPDATE orders " +
+        return  "UPDATE distribution.order " +
                 "SET status = ?, client_id = ?, shop_id = ? " +
                 "WHERE id = ?;";
     }
 
     @Override
     public String getDeleteQuery() {
-        return "DELETE FROM orders WHERE id= ?;";
+        return "DELETE FROM distribution.order WHERE id= ?;";
     }
 
   public Order getByPK(Integer orderId, boolean items) throws PersistException {
@@ -103,9 +103,9 @@ public class MySqlOrderDao extends AbstractJDBCDao<Order, Integer> implements Or
     public List<Order> getOrdersByProductId(Integer productId) throws PersistException {
         List<Order> list;
         String sql = getSelectQuery();
-        sql += " INNER JOIN product_orders ON product.id = product_orders.Product_id " +
-                "INNER JOIN orders ON product_orders.Order_id = orders.id" +
-                " WHERE orders.id = " + productId;
+        sql += " INNER JOIN product_order ON product.id = product_order.Product_id " +
+                "INNER JOIN distribution.order ON product_order.Order_id = distribution.order.id" +
+                " WHERE distribution.order.id = " + productId;
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             ResultSet rs = statement.executeQuery();

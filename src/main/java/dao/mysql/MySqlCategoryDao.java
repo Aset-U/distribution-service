@@ -20,25 +20,25 @@ public class MySqlCategoryDao  extends AbstractJDBCDao<Category, Integer> implem
 
     @Override
     public String getSelectQuery() {
-        return "SELECT id, name FROM product_categories";
+        return "SELECT id, name FROM category";
     }
 
     @Override
     public String getCreateQuery() {
-        return "INSERT INTO product_categories (name) \n" +
+        return "INSERT INTO category (name) \n" +
                 "VALUES (?);";
     }
 
     @Override
     public String getUpdateQuery() {
-        return  "UPDATE product_categories \n" +
+        return  "UPDATE category \n" +
                 "SET name = ? \n" +
                 "WHERE id = ?;";
     }
 
     @Override
     public String getDeleteQuery() {
-        return "DELETE FROM product_categories WHERE id= ?;";
+        return "DELETE FROM category WHERE id= ?;";
     }
 
     @Override

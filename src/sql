@@ -1,0 +1,132 @@
+CREATE DATABASE distribution;
+
+CREATE TABLE `distribution`.`admin` (
+  `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `username` VARCHAR(45) NULL COMMENT '',
+  `password` VARCHAR(45) NULL COMMENT '',
+
+`first_name` VARCHAR(45) NULL COMMENT '',
+  `last_name` VARCHAR(45) NULL COMMENT '',
+  `phone` VARCHAR(45) NULL COMMENT '',
+  PRIMARY KEY (`id`)  COMMENT '')
+ENGINE = InnoDB DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE `distribution`.`client` (
+  `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `username` VARCHAR(45) NULL COMMENT '',
+  `password` VARCHAR(45) NULL COMMENT '',
+`first_name` VARCHAR(45) NULL COMMENT '',
+  `last_name` VARCHAR(45) NULL COMMENT '',
+  `phone` VARCHAR(45) NULL COMMENT '',
+  PRIMARY KEY (`id`)  COMMENT '')
+ENGINE = InnoDB DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE `distribution`.`forwarder` (
+  `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `username` VARCHAR(45) NULL COMMENT '',
+  `password` VARCHAR(45) NULL COMMENT '',
+  `first_name` VARCHAR(45) NULL COMMENT '',
+  `last_name` VARCHAR(45) NULL COMMENT '',
+  `phone` VARCHAR(45) NULL COMMENT '',
+  PRIMARY KEY (`id`)  COMMENT '')
+
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE `distribution`.`car` (
+  `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `number` VARCHAR(45) NULL COMMENT '',
+  `model` VARCHAR(45) NULL COMMENT '',
+  PRIMARY
+KEY (`id`)  COMMENT '')
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE `distribution`.`category` (
+  `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `name` VARCHAR(45) NULL COMMENT '',
+  PRIMARY KEY (`id`)  COMMENT '')
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+CREATE TABLE `distribution`.`shop` (
+  `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `name` VARCHAR(45) NULL COMMENT '',
+  `address` VARCHAR(45) NULL COMMENT '',
+  `phone` VARCHAR(45) NULL COMMENT '',
+  `manager_id` INT NULL COMMENT '',
+  PRIMARY KEY (`id`)  COMMENT '')
+ENGINE = InnoDB DEFAULT
+CHARACTER SET = utf8;
+
+
+CREATE TABLE `distribution`.`order` (
+  `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
+
+`status` ENUM('DRAFT', 'INSPECTED', 'ACCEPTED', 'PACKED', 'SHIPPED', 'DELIVERED', 'CANCELLED') NULL COMMENT '',
+
+ `client_id` INT NULL COMMENT '',
+  `shop_id` INT NULL COMMENT '',
+  PRIMARY KEY (`id`)  COMMENT '',
+
+INDEX `client_id_idx` (`client_id` ASC)  COMMENT '',
+
+INDEX `shop_id_idx` (`shop_id` ASC)  COMMENT '',
+
+CONSTRAINT `client_id`
+    FOREIGN KEY (`client_id`)
+    REFERENCES `distribution`.`client` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+
+CONSTRAINT `shop_id`
+    FOREIGN KEY (`shop_id`)
+    REFERENCES `distribution`.`shop` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+CREATE TABLE `distribution`.`product` (
+  `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `name` VARCHAR(45) NULL COMMENT '',
+  `price` DOUBLE NULL COMMENT '',
+
+`category_id` INT NULL COMMENT '',
+  PRIMARY KEY (`id`)  COMMENT '',
+  INDEX `category_id_idx` (`category_id` ASC)  COMMENT '',
+  CONSTRAINT `category_id`
+    FOREIGN KEY
+(`category_id`)
+    REFERENCES `distribution`.`category` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+CREATE TABLE `distribution`.`order_item` (
+  `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `product_id` INT NULL COMMENT '',
+  `quantity` INT NULL COMMENT '',
+
+`order_id` INT NULL COMMENT '',
+  PRIMARY KEY (`id`)  COMMENT '',
+  INDEX `product_id_idx` (`product_id` ASC)  COMMENT '',
+  INDEX `order_id_idx` (`order_id` ASC)
+COMMENT '',
+  CONSTRAINT `product_id`
+    FOREIGN KEY (`product_id`)
+    REFERENCES `distribution`.`product` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+
+CONSTRAINT `order_id`
+    FOREIGN KEY (`order_id`)
+    REFERENCES `distribution`.`order` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT
+CHARACTER SET = utf8;

@@ -22,25 +22,25 @@ public class MySqlClientDao extends AbstractJDBCDao<Client, Integer> implements 
     @Override
     public String getSelectQuery() {
         return "SELECT id, username, password, first_name, last_name, phone, " +
-                "email FROM clients";
+                "email FROM client";
     }
 
     @Override
     public String getCreateQuery() {
-        return "INSERT INTO clients (username, password, first_name, last_name, " +
+        return "INSERT INTO client (username, password, first_name, last_name, " +
                 "phone, email) \n" +
                 "VALUES (?, ?, ?, ?, ?, ?);";
     }
 
     @Override
     public String getUpdateQuery() {
-        return "UPDATE clients SET username= ?, password= ?, first_name= ?," +
+        return "UPDATE client SET username= ?, password= ?, first_name= ?," +
                 " last_name= ?, phone= ?, email= ? WHERE id= ?;";
     }
 
     @Override
     public String getDeleteQuery() {
-        return "DELETE FROM clients WHERE id= ?;";
+        return "DELETE FROM client WHERE id= ?;";
     }
 
     @Override

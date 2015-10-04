@@ -23,13 +23,11 @@ public class CreateProductAction implements Action{
             String productName = request.getParameter("productName");
             int quantity = Integer.parseInt(request.getParameter("productQuantity"));
             double price = Double.parseDouble(request.getParameter("productPrice"));
-            String weight = request.getParameter("productWeight");
             Category category = categoryDao.getName(request.getParameter("categoryName")) ;
 
             Product product = (Product) productDao.create();
             product.setName(productName);
             product.setPrice(price);
-            product.setWeight(weight);
             product.setCategory(category);
 
         }catch (PersistException e){

@@ -22,25 +22,25 @@ public class MySqlForwarderDao extends AbstractJDBCDao<Forwarder, Integer> imple
     @Override
     public String getSelectQuery() {
         return "SELECT id, username, password, first_name, last_name, phone, " +
-                "email FROM forwarders";
+                "email FROM forwarder";
     }
 
     @Override
     public String getCreateQuery() {
-        return "INSERT INTO forwarders (username, password, first_name, last_name, " +
+        return "INSERT INTO forwarder (username, password, first_name, last_name, " +
                 "phone, email) \n" +
                 "VALUES (?, ?, ?, ?, ?, ?);";
     }
 
     @Override
     public String getUpdateQuery() {
-        return "UPDATE forwarders SET username= ?, password= ?, first_name= ?," +
+        return "UPDATE forwarder SET username= ?, password= ?, first_name= ?," +
                 " last_name= ?, phone= ?, email= ? WHERE id= ?;";
     }
 
     @Override
     public String getDeleteQuery() {
-        return "DELETE FROM forwarders WHERE id= ?;";
+        return "DELETE FROM forwarder WHERE id= ?;";
     }
 
     @Override
@@ -123,7 +123,7 @@ public class MySqlForwarderDao extends AbstractJDBCDao<Forwarder, Integer> imple
     public List<Forwarder> getForwardersByShop(int shopId) throws PersistException {
         List<Forwarder> list;
         String sql = getSelectQuery();
-        sql += " INNER JOIN shop_forwarder ON forwarders.id = shop_forwarder.forwarder_id " +
+        sql += " INNER JOIN shop_forwarder ON forwarder.id = shop_forwarder.forwarder_id " +
                 "INNER JOIN shops ON shop_forwarder.shop_id = shops.id" +
                 " WHERE shops.id = " + shopId;
 

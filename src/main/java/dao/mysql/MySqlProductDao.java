@@ -23,26 +23,25 @@ public class MySqlProductDao extends AbstractJDBCDao<Product, Integer> implement
 
     @Override
     public String getSelectQuery() {
-        return "SELECT id, name, price, weight, category_id FROM products";
+        return "SELECT id, name, price, category_id FROM product";
     }
 
     @Override
     public String getCreateQuery() {
-        return "INSERT INTO products (name, price, weight, category_id) " +
-                "VALUES (?, ?, ?, ?);";
+        return "INSERT INTO product (name, price, category_id) " +
+                "VALUES (?, ?, ?);";
     }
 
     @Override
     public String getUpdateQuery() {
-        return  "UPDATE products " +
-                "SET name = ?, price = ?, weight = ?," +
-                " category_id = ? " +
+        return  "UPDATE product " +
+                "SET name = ?, price = ?, category_id = ? " +
                 "WHERE id = ?;";
 }
 
     @Override
     public String getDeleteQuery() {
-        return "DELETE FROM products WHERE id= ?;";
+        return "DELETE FROM product WHERE id= ?;";
     }
 
     public Product getByPK(Integer productId, boolean withOrders) throws PersistException {
@@ -55,10 +54,10 @@ public class MySqlProductDao extends AbstractJDBCDao<Product, Integer> implement
             Connection connection = (Connection) factory.getContext();
             MySqlOrderDao orderDao = (MySqlOrderDao) factory.getDao(connection, Order.class);
 
-            String sql = "SELECT orders.id, client_id, status_id " +
-                    "FROM orders join product_orders " +
-                    "where product_orders.Order_id = orders.id " +
-                    "and product_orders.Product_id = " + productId + ";";
+            String sql = "SELECT order.id, client_id, status_id " +
+                    "FROM order join product_order " +
+                    "where product_order.Order_id = orders.id " +
+                    "and product_order.Product_id = " + productId + ";";
 
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 ResultSet rs = statement.executeQuery();
@@ -91,9 +90,9 @@ public class MySqlProductDao extends AbstractJDBCDao<Product, Integer> implement
     public List<Product> getProductsByOrder(Integer orderId) throws PersistException {
         List<Product> list;
         String sql = getSelectQuery();
-        sql += " INNER JOIN products_orders ON product.id = products_orders.Product_id " +
-                "INNER JOIN orders ON product_orders.Order_id = orders.id" +
-                " WHERE orders.id = " + orderId;
+        sql += " INNER JOIN product_order ON product.id = product_order.Product_id " +
+                "INNER JOIN order ON product_order.Order_id = order.id" +
+                " WHERE order.id = " + orderId;
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             ResultSet rs = statement.executeQuery();
@@ -120,7 +119,6 @@ public class MySqlProductDao extends AbstractJDBCDao<Product, Integer> implement
                 product.setId(rs.getInt("id"));
                 product.setName(rs.getString("name"));
                 product.setPrice(rs.getDouble("price"));
-                product.setWeight(rs.getString("weight"));
                 product.setCategory((Category) getDependence(Category.class, rs.getInt("category_id")));
                 result.add(product);
             }
@@ -137,8 +135,7 @@ public class MySqlProductDao extends AbstractJDBCDao<Product, Integer> implement
                     : object.getCategory().getId();
             statement.setString(1, object.getName());
             statement.setDouble(2, object.getPrice());
-            statement.setString(3, object.getWeight());
-            statement.setInt(4, categoryId);
+            statement.setInt(3, categoryId);
         } catch (Exception e) {
             throw new PersistException(e);
         }
@@ -151,9 +148,8 @@ public class MySqlProductDao extends AbstractJDBCDao<Product, Integer> implement
                     : object.getCategory().getId();
             statement.setString(1, object.getName());
             statement.setDouble(2, object.getPrice());
-            statement.setString(3, object.getWeight());
-            statement.setInt(4, categoryId);
-            statement.setInt(5, object.getId());
+            statement.setInt(3, categoryId);
+            statement.setInt(4, object.getId());
         } catch (Exception e) {
             throw new PersistException(e);
         }

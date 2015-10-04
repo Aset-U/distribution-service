@@ -19,25 +19,25 @@ public class MySqlAdminDao extends AbstractJDBCDao<Admin, Integer> implements Us
     @Override
     public String getSelectQuery() {
         return "SELECT id, username, password, first_name, last_name, phone, " +
-                "email FROM admins";
+                "email FROM admin";
     }
 
     @Override
     public String getCreateQuery() {
-        return "INSERT INTO admins (username, password, first_name, last_name, " +
+        return "INSERT INTO admin (username, password, first_name, last_name, " +
                 "phone, email) \n" +
                 "VALUES (?, ?, ?, ?, ?, ?);";
     }
 
     @Override
     public String getUpdateQuery() {
-        return "UPDATE admins SET username= ?, password= ?, first_name= ?," +
+        return "UPDATE admin SET username= ?, password= ?, first_name= ?," +
                 " last_name= ?, phone= ?, email= ? WHERE id= ?;";
     }
 
     @Override
     public String getDeleteQuery() {
-        return "DELETE FROM admins WHERE id= ?;";
+        return "DELETE FROM admin WHERE id= ?;";
     }
 
     @Override

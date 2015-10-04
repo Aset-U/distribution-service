@@ -21,25 +21,25 @@ public class MySqlCarDao extends AbstractJDBCDao<Car, Integer>  implements CarDa
 
     @Override
     public String getSelectQuery() {
-        return "SELECT id, number, model FROM cars ";
+        return "SELECT id, number, model FROM car ";
     }
 
     @Override
     public String getCreateQuery() {
-        return "INSERT INTO cars (number, model) " +
+        return "INSERT INTO car (number, model) " +
                 "VALUES (?, ?);";
     }
 
     @Override
     public String getUpdateQuery() {
-        return "UPDATE cars " +
+        return "UPDATE car " +
                 "SET name = ?, model = ? " +
                 "WHERE id = ?;";
     }
 
     @Override
     public String getDeleteQuery() {
-        return "DELETE FROM cars WHERE id= ?;";
+        return "DELETE FROM car WHERE id= ?;";
     }
 
     @Override
@@ -132,9 +132,9 @@ public class MySqlCarDao extends AbstractJDBCDao<Car, Integer>  implements CarDa
     public List<Car> getCarsByForwarders(int forwarderId) throws PersistException {
         List<Car> list;
         String sql = getSelectQuery();
-        sql += " INNER JOIN forwarder_car ON cars.id = forwarder_car.car_id " +
-                "INNER JOIN forwarders ON forwarder_car.forwarder_id = forwarders.id" +
-                " WHERE forwarders.id = " + forwarderId;
+        sql += " INNER JOIN forwarder_car ON car.id = forwarder_car.car_id " +
+                "INNER JOIN forwarder ON forwarder_car.forwarder_id = forwarder.id" +
+                " WHERE forwarder.id = " + forwarderId;
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             ResultSet rs = statement.executeQuery();

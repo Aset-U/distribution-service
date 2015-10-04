@@ -26,7 +26,6 @@
             </button>
         </form>
         </span>
-        <p><b>weight: </b> <c:out value="${product.weight}"></c:out></p>
         <p><b>category: </b> <c:out value="${product.category.name}"></c:out></p>
     </div><!--/product-information-->
 

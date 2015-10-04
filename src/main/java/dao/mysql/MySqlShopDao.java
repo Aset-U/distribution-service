@@ -30,25 +30,25 @@ public class MySqlShopDao extends AbstractJDBCDao<Shop, Integer> implements Shop
 
     @Override
     public String getSelectQuery() {
-        return "SELECT id, name, address, phone, manager_id FROM shops ";
+        return "SELECT id, name, address, phone, manager_id FROM shop ";
     }
 
     @Override
     public String getCreateQuery() {
-        return "INSERT INTO shops (name, address, phone, manager_id) \n" +
+        return "INSERT INTO shop (name, address, phone, manager_id) \n" +
                 "VALUES (?, ?, ?, ?);";
     }
 
     @Override
     public String getUpdateQuery() {
-        return  "UPDATE shops \n" +
+        return  "UPDATE shop \n" +
                 "SET name = ?, address = ?, phone = ?, manager_id = ? \n" +
                 "WHERE id = ?;";
     }
 
     @Override
     public String getDeleteQuery() {
-        return "DELETE FROM shops WHERE id= ?;";
+        return "DELETE FROM shop WHERE id= ?;";
     }
 
     public MySqlShopDao (DaoFactory<Connection> parentFactory, Connection connection) {
@@ -118,8 +118,8 @@ public class MySqlShopDao extends AbstractJDBCDao<Shop, Integer> implements Shop
         List<Shop> list;
         String sql = getSelectQuery();
         sql += " INNER JOIN shop_forwarder ON shop.id = shop_forwarder.shop_id " +
-                "INNER JOIN forwarders ON shop_forwarder.forwarder_id = forwarders.id" +
-                " WHERE forwarders.id = " + forwarderId;
+                "INNER JOIN forwarder ON shop_forwarder.forwarder_id = forwarder.id" +
+                " WHERE forwarder.id = " + forwarderId;
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             ResultSet rs = statement.executeQuery();

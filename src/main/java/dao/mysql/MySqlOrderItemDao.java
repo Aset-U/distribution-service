@@ -22,25 +22,25 @@ public class MySqlOrderItemDao extends AbstractJDBCDao<OrderItem, Integer>{
 
     @Override
     public String getSelectQuery() {
-        return "SELECT id, product_id, quantity, order_id FROM order_items ";
+        return "SELECT id, product_id, quantity, order_id FROM order_item ";
     }
 
     @Override
     public String getCreateQuery() {
-        return "INSERT INTO order_items (product_id, quantity, order_id) \n" +
+        return "INSERT INTO order_item (product_id, quantity, order_id) \n" +
                 "VALUES (?, ?, ?);";
     }
 
     @Override
     public String getUpdateQuery() {
-        return  "UPDATE order_items " +
+        return  "UPDATE order_item " +
                 "SET product_id = ?, quantity  = ?, order_id = ? " +
                 "WHERE id = ?;";
     }
 
     @Override
     public String getDeleteQuery() {
-        return "DELETE FROM order_items WHERE id= ?;";
+        return "DELETE FROM order_item WHERE id= ?;";
     }
 
     public List<OrderItem> getByOrderId(int orderId) throws PersistException{

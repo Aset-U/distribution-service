@@ -7,19 +7,16 @@ public class Product extends Entity {
 
     private String name;
     private double price;   //BigDecimal?
-    private String weight;
     private Category category;
     private List<Order> orders;
 
     public Product() {
     }
 
-    public Product(Integer id, String name, double price, String weight, Category category, List<Order> orders) {
+    public Product(Integer id, String name, double price, Category category, List<Order> orders) {
         super(id);
         this.name = name;
-
         this.price = price;
-        this.weight = weight;
         this.category = category;
         this.orders = orders;
     }
@@ -48,14 +45,6 @@ public class Product extends Entity {
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public String getWeight() {
-        return weight;
-    }
-
-    public void setWeight(String weight) {
-        this.weight = weight;
     }
 
     public Category getCategory() {
@@ -100,7 +89,6 @@ public class Product extends Entity {
                 "id=" + getId() +
                 ", name='" + name + '\'' +
                 ", price=" + price +
-                ", weight=" + weight +
                 ", category=" + category +
                 ", orders=" + orders +
                 '}';
