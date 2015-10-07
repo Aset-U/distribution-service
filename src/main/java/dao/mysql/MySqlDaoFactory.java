@@ -12,16 +12,18 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import resource.DataBaseManager;
 
 public class MySqlDaoFactory implements DaoFactory<Connection> {
 
     private static DaoFactory instance;
 
 
-    private String user = "root";//Логин пользователя
-    private String password = "root";//Пароль пользователя
-    private String url = "jdbc:mysql://localhost:3306/distribution"; //URL адрес
-    private String driver = "com.mysql.jdbc.Driver";//Имя драйвера
+    private String user = DataBaseManager.getProperty("user");//Логин пользователя
+    private String password = DataBaseManager.getProperty("password");//Пароль пользователя
+    private String url = DataBaseManager.getProperty("url"); //URL адрес
+    private String driver = DataBaseManager.getProperty("driver");//Имя драйвера
+
     private Map<Class, DaoCreator> creators;
 
     public Connection getContext() throws PersistException {
@@ -45,7 +47,7 @@ public class MySqlDaoFactory implements DaoFactory<Connection> {
 
     public MySqlDaoFactory() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(driver);
             Driver driver = new FabricMySQLDriver();
             DriverManager.registerDriver(driver);//Регистрируем драйвер
         } catch (SQLException e) {

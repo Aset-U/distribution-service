@@ -39,5 +39,6 @@
     </div>
     </c:forEach>
       </div>
+    </section>
 </body>
 </html>
