@@ -3,9 +3,7 @@ package action;
 
 import dao.*;
 import dao.mysql.MySqlDaoFactory;
-import dao.mysql.MySqlOrderDao;
-import dao.mysql.MySqlOrderItemDao;
-import entity.*;
+import models.*;
 import resource.ConfigurationManager;
 import resource.MessageManager;
 
@@ -13,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.*;
 
 public class AddToCartAction implements Action {
 

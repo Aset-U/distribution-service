@@ -8,7 +8,7 @@ import dao.mysql.MySqlDaoFactory;
 import dao.mysql.MySqlOrderDao;
 import dao.mysql.MySqlOrderItemDao;
 import dao.mysql.MySqlUserDao;
-import entity.*;
+import models.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import resource.ConfigurationManager;

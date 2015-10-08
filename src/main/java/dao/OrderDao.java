@@ -1,8 +1,8 @@
 package dao;
 
 
-import entity.Order;
-import entity.Status;
+import models.Order;
+import models.Status;
 
 import java.util.List;
 

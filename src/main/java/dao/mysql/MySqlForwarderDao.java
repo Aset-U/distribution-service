@@ -4,7 +4,7 @@ import dao.DaoFactory;
 import dao.ForwarderDao;
 import dao.PersistException;
 import dao.UserDao;
-import entity.Forwarder;
+import models.Forwarder;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

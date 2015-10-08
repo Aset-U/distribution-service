@@ -3,7 +3,7 @@ package dao.mysql;
 import dao.DaoFactory;
 import dao.OrderDao;
 import dao.PersistException;
-import entity.*;
+import models.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

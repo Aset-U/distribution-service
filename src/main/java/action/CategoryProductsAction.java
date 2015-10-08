@@ -4,7 +4,7 @@ package action;
 import dao.DaoFactory;
 import dao.ProductDao;
 import dao.mysql.MySqlDaoFactory;
-import entity.Product;
+import models.Product;
 import resource.ConfigurationManager;
 
 import javax.servlet.http.HttpServletRequest;

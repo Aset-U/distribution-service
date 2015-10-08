@@ -1,15 +1,12 @@
 package dao.mysql;
 
 import dao.*;
-import entity.Admin;
-import entity.Client;
-import entity.Forwarder;
-import entity.User;
+import models.Admin;
+import models.Client;
+import models.Forwarder;
+import models.User;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.List;
 
 
 public class MySqlUserDao  implements UserDao {

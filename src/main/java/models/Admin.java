@@ -1,19 +1,12 @@
-package entity;
+package models;
 
 
-import java.util.List;
+public class Admin extends User {
+    public Admin() {
+    }
 
-public class Forwarder extends User {
-
-    private List<Shop> shops;
-    private List<Car> cars;
-
-    public Forwarder(){}
-
-    public Forwarder(Integer id, String username, String password, String firstName, String lastName, String phoneNumber, String email, List<Shop> shops, List<Car> cars) {
+    public Admin(Integer id, String username, String password, String firstName, String lastName, String phoneNumber, String email) {
         super(id, username, password, firstName, lastName, phoneNumber, email);
-        this.shops = shops;
-        this.cars = cars;
     }
 
     @Override
@@ -86,27 +79,9 @@ public class Forwarder extends User {
         super.setEmail(email);
     }
 
-    public List<Shop> getShops() {
-        return shops;
-    }
-
-    public void setShops(List<Shop> shops) {
-        this.shops = shops;
-    }
-
-    public List<Car> getCars() {
-        return cars;
-    }
-
-    public void setCars(List<Car> cars) {
-        this.cars = cars;
-    }
 
     @Override
     public String toString() {
-        return  super.toString() +
-                "shops=" + shops +
-                "cars=" + cars +
-                '}';
+        return super.toString();
     }
 }

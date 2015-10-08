@@ -4,8 +4,7 @@ package dao.mysql;
 import dao.CarDao;
 import dao.DaoFactory;
 import dao.PersistException;
-import entity.Car;
-import entity.Forwarder;
+import models.Car;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

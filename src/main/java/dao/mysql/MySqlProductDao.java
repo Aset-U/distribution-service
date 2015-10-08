@@ -3,9 +3,9 @@ package dao.mysql;
 import dao.DaoFactory;
 import dao.PersistException;
 import dao.ProductDao;
-import entity.Category;
-import entity.Order;
-import entity.Product;
+import models.Category;
+import models.Order;
+import models.Product;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

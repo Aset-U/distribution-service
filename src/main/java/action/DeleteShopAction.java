@@ -4,8 +4,8 @@ import com.mysql.jdbc.Connection;
 import dao.DaoFactory;
 import dao.mysql.MySqlDaoFactory;
 import dao.mysql.MySqlShopDao;
-import entity.Client;
-import entity.Shop;
+import models.Client;
+import models.Shop;
 import resource.ConfigurationManager;
 
 import javax.servlet.http.HttpServletRequest;

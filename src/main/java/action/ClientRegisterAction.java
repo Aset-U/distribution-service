@@ -1,19 +1,15 @@
 package action;
 
 
-import dao.ClientDao;
 import dao.DaoFactory;
 import dao.PersistException;
-import dao.UserDao;
-import dao.mysql.AbstractJDBCDao;
 import dao.mysql.MySqlClientDao;
 import dao.mysql.MySqlDaoFactory;
-import entity.Client;
+import models.Client;
 import resource.ConfigurationManager;
 
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
 package dao;
 
 
-import entity.Category;
+import models.Category;
 
 import java.util.List;
 

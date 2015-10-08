@@ -1,16 +1,12 @@
 package action;
 
 
-import entity.Client;
-import entity.Order;
-import entity.Product;
+import models.Client;
+import models.Order;
 import resource.ConfigurationManager;
-import resource.MessageManager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
-import java.util.*;
 
 public class ShowCartAction implements Action{
 

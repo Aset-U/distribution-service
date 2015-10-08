@@ -3,8 +3,7 @@ package action;
 import dao.DaoFactory;
 import dao.mysql.MySqlClientDao;
 import dao.mysql.MySqlDaoFactory;
-import entity.Client;
-import entity.Order;
+import models.Client;
 import resource.ConfigurationManager;
 
 import javax.servlet.http.HttpServletRequest;

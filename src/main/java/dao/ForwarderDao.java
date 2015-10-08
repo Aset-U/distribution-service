@@ -2,7 +2,7 @@ package dao;
 
 
 
-import entity.Forwarder;
+import models.Forwarder;
 
 import java.util.List;
 

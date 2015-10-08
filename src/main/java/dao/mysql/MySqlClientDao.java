@@ -4,8 +4,7 @@ import dao.ClientDao;
 import dao.DaoFactory;
 import dao.PersistException;
 import dao.UserDao;
-import entity.Client;
-import entity.User;
+import models.Client;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

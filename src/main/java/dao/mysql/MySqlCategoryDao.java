@@ -4,7 +4,7 @@ package dao.mysql;
 import dao.CategoryDao;
 import dao.DaoFactory;
 import dao.PersistException;
-import entity.Category;
+import models.Category;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -5,10 +5,10 @@ import dao.DaoFactory;
 import dao.mysql.MySqlDaoFactory;
 import dao.mysql.MySqlOrderDao;
 import dao.mysql.MySqlOrderItemDao;
-import entity.Client;
-import entity.Order;
-import entity.OrderItem;
-import entity.Status;
+import models.Client;
+import models.Order;
+import models.OrderItem;
+import models.Status;
 import resource.ConfigurationManager;
 
 import javax.servlet.http.HttpServletRequest;

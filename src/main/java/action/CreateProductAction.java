@@ -4,8 +4,8 @@ import dao.*;
 import dao.mysql.MySqlCategoryDao;
 import dao.mysql.MySqlDaoFactory;
 import dao.mysql.MySqlProductDao;
-import entity.Category;
-import entity.Product;
+import models.Category;
+import models.Product;
 
 import javax.servlet.http.HttpServletRequest;
 

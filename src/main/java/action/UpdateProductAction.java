@@ -1,7 +1,7 @@
 package action;
 
 
-import entity.Order;
+import models.Order;
 import resource.ConfigurationManager;
 
 import javax.servlet.http.HttpServletRequest;

@@ -1,7 +1,7 @@
 package dao;
 
 
-import entity.Car;
+import models.Car;
 
 import java.util.List;
 

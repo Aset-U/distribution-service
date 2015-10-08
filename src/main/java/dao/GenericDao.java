@@ -4,28 +4,19 @@ package dao;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * Унифицированный интерфейс управления персистентным состоянием объектов
- * @param <T> тип объекта персистенции
- * @param <PK> тип первичного ключа
- */
-public interface GenericDao<T extends Identified<PK>, PK extends Serializable> {
 
-    /** Создает новую запись и соответствующий ей объект */
-    public T create() throws PersistException;
+public interface GenericDao<E,K>{
 
-    /** Создает новую запись, соответствующую объекту object */
-    public T persist(T object)  throws PersistException;
+    public void add(E entity);
 
-    /** Возвращает объект соответствующий записи с первичным ключом key или null */
-    public T getByPK(PK key) throws PersistException;
+    public void save(E entity);
 
-    /** Сохраняет состояние объекта group в базе данных */
-    public void update(T object) throws PersistException;
+    public void update(E entity);
 
-    /** Удаляет запись об объекте из базы данных */
-    public void delete(T object) throws PersistException;
+    public void remove(E entity);
 
-    /** Возвращает список объектов соответствующих всем записям в базе данных */
-    public List<T> getAll() throws PersistException;
+    public E findById(K key);
+
+    public List<E> getAll();
+
 }

@@ -1,11 +1,10 @@
-package entity;
+package models;
 
+public class Client extends User {
 
-public class Admin extends User {
-    public Admin() {
-    }
+    public Client(){}
 
-    public Admin(Integer id, String username, String password, String firstName, String lastName, String phoneNumber, String email) {
+    public Client(Integer id, String username, String password, String firstName, String lastName, String phoneNumber, String email) {
         super(id, username, password, firstName, lastName, phoneNumber, email);
     }
 
@@ -79,9 +78,9 @@ public class Admin extends User {
         super.setEmail(email);
     }
 
-
     @Override
     public String toString() {
         return super.toString();
     }
+
 }

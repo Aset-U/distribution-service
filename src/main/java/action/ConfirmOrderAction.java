@@ -2,12 +2,11 @@ package action;
 
 
 import dao.DaoFactory;
-import dao.ShopDao;
 import dao.mysql.MySqlDaoFactory;
 import dao.mysql.MySqlOrderDao;
 import dao.mysql.MySqlOrderItemDao;
 import dao.mysql.MySqlShopDao;
-import entity.*;
+import models.*;
 import resource.ConfigurationManager;
 
 import javax.servlet.http.HttpServletRequest;

@@ -5,7 +5,7 @@ import com.mysql.fabric.jdbc.FabricMySQLDriver;
 import dao.DaoFactory;
 import dao.GenericDao;
 import dao.PersistException;
-import entity.*;
+import models.*;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;

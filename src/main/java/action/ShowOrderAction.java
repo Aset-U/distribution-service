@@ -4,16 +4,13 @@ package action;
 import dao.DaoFactory;
 import dao.OrderDao;
 import dao.mysql.MySqlDaoFactory;
-import dao.mysql.MySqlOrderItemDao;
-import entity.Order;
-import entity.OrderItem;
+import models.Order;
 import resource.ConfigurationManager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
 
 public class ShowOrderAction implements Action {
 

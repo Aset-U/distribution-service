@@ -1,6 +1,6 @@
 package action;
 
-import entity.User;
+import models.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;

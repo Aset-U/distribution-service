@@ -7,7 +7,7 @@ import dao.ProductDao;
 import dao.mysql.MySqlDaoFactory;
 import dao.mysql.MySqlOrderDao;
 import dao.mysql.MySqlOrderItemDao;
-import entity.*;
+import models.*;
 
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSession;
