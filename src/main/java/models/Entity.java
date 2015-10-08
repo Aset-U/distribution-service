@@ -1,10 +1,15 @@
 package models;
 
+import javax.persistence.*;
+import java.io.Serializable;
 
-import dao.Identified;
+@MappedSuperclass
+public abstract class Entity implements Serializable {
 
-public class Entity implements Identified<Integer> {
-    private Integer id = null;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private Integer id;
 
     public Entity() {
     }
@@ -13,7 +18,6 @@ public class Entity implements Identified<Integer> {
         this.id = id;
     }
 
-    @Override
     public Integer getId() {
         return id;
     }

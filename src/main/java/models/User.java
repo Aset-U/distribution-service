@@ -1,14 +1,28 @@
 package models;
 
 
+import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
 
+@MappedSuperclass
 public abstract class User extends Entity {
 
+    @Column(name = "username")
     private String username;
+
+    @Column(name = "password")
     private String password;
+
+    @Column(name = "first_name")
     private String firstName;
+
+    @Column(name = "last_name")
     private String lastName;
+
+    @Column(name = "phone")
     private String phoneNumber;
+
+    @Column(name = "e-mail")
     private String email;
 
     public User() {
