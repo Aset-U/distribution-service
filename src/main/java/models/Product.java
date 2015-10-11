@@ -3,7 +3,7 @@ package models;
 
 import java.util.List;
 
-public class Product extends Entity {
+public class Product extends AbstractEntity {
 
     private String name;
     private double price;   //BigDecimal?

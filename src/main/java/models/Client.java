@@ -1,6 +1,23 @@
 package models;
 
-public class Client extends User {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import java.io.Serializable;
+import java.util.Set;
+
+@Entity
+@Table(name = "client")
+public class Client extends User implements Serializable {
+
+    @Column(name = "[order]")
+    @OneToMany(mappedBy = "client")
+    Set<Order> oredrs;
+
+    @Column(name = "shop")
+    @OneToMany(mappedBy = "manager")
+    Set<Shop> shops;
 
     public Client(){}
 

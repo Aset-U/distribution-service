@@ -1,7 +1,7 @@
 package models;
 
 
-public class OrderItem extends Entity{
+public class OrderItem extends AbstractEntity {
 
     private Product product;
     private short quantity;

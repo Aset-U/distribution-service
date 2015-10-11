@@ -1,13 +1,20 @@
 package models;
 
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+@Entity
+@Table(name = "order")
+public class Order extends AbstractEntity {
 
-public class Order extends Entity {
-
+    @Enumerated (EnumType.ORDINAL)
     private Status status;
+
+    @ManyToOne
+    @JoinColumn(name = "client_id")
     private Client client;
+
     private Shop shop;
     private List<OrderItem> items;
     private int numberOfItems;

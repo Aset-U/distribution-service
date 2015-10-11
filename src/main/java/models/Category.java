@@ -2,7 +2,7 @@ package models;
 
 
 
-public class Category extends Entity {
+public class Category extends AbstractEntity {
 
     private String name;
 

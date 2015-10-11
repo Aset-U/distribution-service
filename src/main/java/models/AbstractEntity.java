@@ -4,17 +4,17 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @MappedSuperclass
-public abstract class Entity implements Serializable {
+public abstract class AbstractEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Integer id;
 
-    public Entity() {
+    public AbstractEntity() {
     }
 
-    public Entity(Integer id) {
+    public AbstractEntity(Integer id) {
         this.id = id;
     }
 

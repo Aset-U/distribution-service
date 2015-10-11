@@ -1,13 +1,27 @@
 package models;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
-public class Shop extends Entity {
+@Entity
+@Table(name = "shop")
+public class Shop extends AbstractEntity implements Serializable{
 
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "adress")
     private String address;
+
+    @Column(name = "phone", length = 12)
     private String phone;
+
+    @ManyToOne
+    @JoinColumn(name = "manager_id")
     private Client manager;
+
+
     private List<Forwarder> forwarders;
 
     public Shop() {

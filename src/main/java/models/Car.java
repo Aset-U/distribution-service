@@ -3,7 +3,7 @@ package models;
 
 import java.util.List;
 
-public class Car extends Entity {
+public class Car extends AbstractEntity {
 
     private String number;
     private String model;
