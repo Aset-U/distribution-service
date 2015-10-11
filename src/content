@@ -1,0 +1,40 @@
+INSERT INTO `distribution`.`category` (`name`) VALUES ('Beverages');
+INSERT INTO `distribution`.`category` (`name`) VALUES ('Confectionery');
+INSERT INTO `distribution`.`category` (`name`) VALUES ('Seasonings');
+INSERT INTO `distribution`.`category` (`name`) VALUES ('Detergents');
+
+INSERT INTO `distribution`.`product` (`name`, `price`, `category_id`) VALUES ('Mineral water', '2.1', '1');
+INSERT INTO `distribution`.`product` (`name`, `price`, `category_id`) VALUES ('Cola', '2.5', '1');
+INSERT INTO `distribution`.`product` (`name`, `price`, `category_id`) VALUES ('Lemonade', '3', '1');
+INSERT INTO `distribution`.`product` (`name`, `price`, `category_id`) VALUES ('Jujube', '4', '2');
+INSERT INTO `distribution`.`product` (`name`, `price`, `category_id`) VALUES ('Chocolate candies', '5', '2');
+INSERT INTO `distribution`.`product` (`name`, `price`, `category_id`) VALUES ('Milk chocolate', '4.7', '2');
+INSERT INTO `distribution`.`product` (`name`, `price`, `category_id`) VALUES ('Lollipop', '3', '2');
+INSERT INTO `distribution`.`product` (`name`, `price`, `category_id`) VALUES ('Red pepper', '1', '3');
+INSERT INTO `distribution`.`product` (`name`, `price`, `category_id`) VALUES ('Black pepper', '1', '3');
+INSERT INTO `distribution`.`product` (`name`, `price`, `category_id`) VALUES ('Paprika', '1.4', '3');
+INSERT INTO `distribution`.`product` (`name`, `price`, `category_id`) VALUES ('Peppermint', '1.8', '3');
+INSERT INTO `distribution`.`product` (`name`, `price`, `category_id`) VALUES ('Lemon acid', '2', '3');
+INSERT INTO `distribution`.`product` (`name`, `price`, `category_id`) VALUES ('Universal detergents', '7', '4');
+INSERT INTO `distribution`.`product` (`name`, `price`, `category_id`) VALUES ('Washing powder', '8', '4');
+INSERT INTO `distribution`.`product` (`name`, `price`, `category_id`) VALUES ('Liquid soap', '6', '4');
+
+INSERT INTO `distribution`.`client` (`username`, `password`, `first_name`, `last_name`, `phone`) VALUES ('mr1', '11111', 'Will', 'Macman', '777-111');
+INSERT INTO `distribution`.`client` (`username`, `password`, `first_name`, `last_name`, `phone`) VALUES ('mrs2', '22222', 'Lisa', 'Shoper', '888-222');
+
+
+
+INSERT INTO `distribution`.`shop` (`name`, `address`, `phone`, `manager_id`) VALUES ('Super market', 'Lenina 100', '22-454-551', '1');
+INSERT INTO `distribution`.`shop` (`name`, `address`, `phone`, `manager_id`) VALUES ('Mini market', 'Lenina 200', '33-777-123', '1');
+INSERT INTO `distribution`.`shop` (`name`, `address`, `phone`, `manager_id`) VALUES ('Large store', 'B.Mira 77', '42-566-123', '2');
+INSERT INTO `distribution`.`shop` (`name`, `address`, `phone`, `manager_id`) VALUES ('Small shop', 'Stroiteley 1/1', '74-722-555', '2');
+
+
+INSERT INTO `distribution`.`admin` (`username`, `password`, `first_name`, `last_name`, `phone`) VALUES ('admin', 'admin', 'admin', 'admin', '000-000');
+
+
+INSERT INTO `distribution`.`forwarder` (`username`, `password`, `first_name`, `last_name`, `phone`) VALUES ('vodila', 'vodila', 'Driver', 'Black', '333-111');
+
+
+INSERT INTO `distribution`.`car` (`number`, `model`) VALUES ('001', 'Toyota');
+INSERT INTO `distribution`.`car` (`number`, `model`) VALUES ('002', 'Gaz');

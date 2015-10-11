@@ -21,7 +21,7 @@ public class MySqlOrderDao extends AbstractJDBCDao<Order, Integer> implements Or
 
     @Override
     public String getSelectQuery() {
-        return "SELECT id, status, client_id, shop_id FROM distribution.order ";// дописать имя БД к таблице
+        return "SELECT id, status, client_id, shop_id FROM distribution.order ";
     }
 
     @Override
