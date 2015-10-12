@@ -5,15 +5,16 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "client")
+@Table
 public class Client extends User implements Serializable {
 
     @Column(name = "[order]")
     @OneToMany(mappedBy = "client")
-    Set<Order> oredrs;
+    Set<Order> oredrs = new HashSet<>();
 
     @Column(name = "shop")
     @OneToMany(mappedBy = "manager")
@@ -21,8 +22,10 @@ public class Client extends User implements Serializable {
 
     public Client(){}
 
-    public Client(Integer id, String username, String password, String firstName, String lastName, String phoneNumber, String email) {
+    public Client(Integer id, String username, String password, String firstName, String lastName, String phoneNumber, String email, Set<Order> oredrs, Set<Shop> shops) {
         super(id, username, password, firstName, lastName, phoneNumber, email);
+        this.oredrs = oredrs;
+        this.shops = shops;
     }
 
     @Override
@@ -95,9 +98,27 @@ public class Client extends User implements Serializable {
         super.setEmail(email);
     }
 
-    @Override
-    public String toString() {
-        return super.toString();
+    public Set<Order> getOredrs() {
+        return oredrs;
     }
 
+    public void setOredrs(Set<Order> oredrs) {
+        this.oredrs = oredrs;
+    }
+
+    public Set<Shop> getShops() {
+        return shops;
+    }
+
+    public void setShops(Set<Shop> shops) {
+        this.shops = shops;
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "oredrs=" + oredrs +
+                ", shops=" + shops +
+                '}';
+    }
 }

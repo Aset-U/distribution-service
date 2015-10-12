@@ -1,10 +1,21 @@
 package models;
 
 
+import javax.persistence.*;
+import java.math.BigDecimal;
+
+@Entity
+@Table(name = "order_item")
 public class OrderItem extends AbstractEntity {
 
+    @OneToOne
+    @JoinColumn(name = "product_id")
     private Product product;
+
     private short quantity;
+
+    @ManyToOne
+    @JoinColumn(name = "order_id")
     private Order order;
 
     public OrderItem() {}
@@ -63,9 +74,9 @@ public class OrderItem extends AbstractEntity {
         quantity--;
     }
 
-    public double getTotal() {
-        double amount = 0;
-        amount = (this.getQuantity() * product.getPrice());
+    public BigDecimal getTotal() {
+        BigDecimal amount = new BigDecimal("0");
+        amount = product.getPrice().multiply(BigDecimal.valueOf(this.getQuantity()));
         return amount;
     }
 

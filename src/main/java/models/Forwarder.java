@@ -1,8 +1,12 @@
 package models;
 
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.List;
 
+@Entity
+@Table
 public class Forwarder extends User {
 
     private List<Shop> shops;

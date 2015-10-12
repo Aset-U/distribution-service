@@ -1,27 +1,33 @@
 package models;
 
 
+import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.List;
-
+@Entity
 public class Product extends AbstractEntity {
 
     private String name;
-    private double price;   //BigDecimal?
+    private BigDecimal price;
     private String weight;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
     private Category category;
-    private List<Order> orders;
+
+    @OneToOne(mappedBy = "product")
+    private OrderItem orderItem;
 
     public Product() {
     }
 
-    public Product(Integer id, String name, double price, String weight, Category category, List<Order> orders) {
+    public Product(Integer id, String name, BigDecimal price, String weight, Category category, OrderItem orderItem) {
         super(id);
         this.name = name;
-
         this.price = price;
         this.weight = weight;
         this.category = category;
-        this.orders = orders;
+        this.orderItem = orderItem;
     }
 
     @Override
@@ -42,11 +48,11 @@ public class Product extends AbstractEntity {
         this.name = name;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -66,12 +72,12 @@ public class Product extends AbstractEntity {
         this.category = category;
     }
 
-    public List<Order> getOrders() {
-        return orders;
+    public OrderItem getOrderItem() {
+        return orderItem;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    public void setOrderItem(OrderItem orderItem) {
+        this.orderItem = orderItem;
     }
 
     @Override
@@ -102,7 +108,6 @@ public class Product extends AbstractEntity {
                 ", price=" + price +
                 ", weight=" + weight +
                 ", category=" + category +
-                ", orders=" + orders +
                 '}';
     }
 }

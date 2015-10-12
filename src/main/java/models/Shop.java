@@ -2,25 +2,27 @@ package models;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "shop")
-public class Shop extends AbstractEntity implements Serializable{
+public class Shop extends AbstractEntity implements Serializable {
 
-    @Column(name = "name")
     private String name;
 
-    @Column(name = "adress")
     private String address;
 
-    @Column(name = "phone", length = 12)
+    @Column(length = 12)
     private String phone;
 
     @ManyToOne
     @JoinColumn(name = "manager_id")
     private Client manager;
 
+    @OneToMany(mappedBy = "shop")
+    private Set<Order> orders = new HashSet<>();
 
     private List<Forwarder> forwarders;
 
@@ -28,12 +30,13 @@ public class Shop extends AbstractEntity implements Serializable{
     }
 
 
-    public Shop(Integer id, String name, String address, String phone, Client manager, List<Forwarder> forwarders) {
+    public Shop(Integer id, String name, String address, String phone, Client manager, Set<Order> orders, List<Forwarder> forwarders) {
         super(id);
         this.name = name;
         this.address = address;
         this.phone = phone;
         this.manager = manager;
+        this.orders = orders;
         this.forwarders = forwarders;
     }
 
@@ -84,6 +87,14 @@ public class Shop extends AbstractEntity implements Serializable{
 
     public void setForwarders(List<Forwarder> forwarders) {
         this.forwarders = forwarders;
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
     }
 
     @Override

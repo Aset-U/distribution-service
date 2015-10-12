@@ -2,28 +2,37 @@ package models;
 
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 @Entity
-@Table(name = "order")
+@Table(name = "[Order]")
 public class Order extends AbstractEntity {
 
-    @Enumerated (EnumType.ORDINAL)
+    @Column(columnDefinition =
+            "enum('DRAFT','INSPECTED', 'ACCEPTED','PACKED', 'SHIPPED','DELIVERED', CANCELLED)")
+    @Enumerated (EnumType.STRING)
     private Status status;
 
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
 
+    @ManyToOne
+    @JoinColumn(name = "shop_id")
     private Shop shop;
+
+    @OneToMany(mappedBy = "order")
     private List<OrderItem> items;
+
     private int numberOfItems;
-    private double total;
+
+    private BigDecimal total;
 
     public Order() {
         items = new ArrayList<OrderItem>();
         numberOfItems = 0;
-        total = 0;
+        total = new BigDecimal("0");
     }
 
 
@@ -34,7 +43,7 @@ public class Order extends AbstractEntity {
         this.shop = shop;
         items = new ArrayList<OrderItem>();
         numberOfItems = 0;
-        total = 0;
+        total = new BigDecimal("0");
     }
 
     public synchronized void addItem(Product product) {
@@ -103,14 +112,14 @@ public class Order extends AbstractEntity {
         return numberOfItems;
     }
 
-    public synchronized double getSubtotal() {
+    public synchronized BigDecimal getSubtotal() {
 
-        double amount = 0;
+        BigDecimal amount = new BigDecimal("0");
 
         for (OrderItem scItem : items) {
 
             Product product = (Product) scItem.getProduct();
-            amount += (scItem.getQuantity() * product.getPrice());
+            amount = amount.add(product.getPrice().multiply((BigDecimal.valueOf(scItem.getQuantity()))));
         }
 
         return amount;
@@ -118,18 +127,18 @@ public class Order extends AbstractEntity {
 
     public synchronized void calculateTotal(String surcharge) {
 
-        double amount = 0;
+        BigDecimal amount = new BigDecimal("0");
 
         // cast surcharge as double
-        double s = Double.parseDouble(surcharge);
+        BigDecimal s = new BigDecimal(surcharge);
 
         amount = this.getSubtotal();
-        amount += s;
+        amount = amount.add(s);
 
         total = amount;
     }
 
-    public synchronized double getTotal() {
+    public synchronized BigDecimal getTotal() {
 
         return total;
     }
@@ -137,7 +146,7 @@ public class Order extends AbstractEntity {
     public synchronized void clear() {
         items.clear();
         numberOfItems = 0;
-        total = 0;
+        total = new BigDecimal("0");
     }
     @Override
     public Integer getId() {
