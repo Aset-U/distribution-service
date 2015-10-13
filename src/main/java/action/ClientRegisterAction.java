@@ -1,8 +1,6 @@
 package action;
 
 
-import dao.DaoFactory;
-import dao.PersistException;
 import dao.mysql.MySqlClientDao;
 import dao.mysql.MySqlDaoFactory;
 import models.Client;

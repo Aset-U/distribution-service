@@ -5,9 +5,8 @@ import models.Shop;
 
 import java.util.List;
 
-public interface ShopDao {
-    public Shop getShopByName(String name) throws PersistException;
-    public Shop getShopByAddress(String address) throws PersistException;
-    public List<Shop>  getShopsByManager(int clientId) throws PersistException;
-    public List<Shop> getShopsByForwarder(int forwarderId) throws PersistException;
+public interface ShopDao extends GenericDao<Shop, Integer>{
+    public Shop findByName(String name);
+    public Shop findByAddress(String address);
+    public List<Shop> getAllByManager(Integer clientId);
 }

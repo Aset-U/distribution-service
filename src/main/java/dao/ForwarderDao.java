@@ -6,9 +6,6 @@ import models.Forwarder;
 
 import java.util.List;
 
-public interface ForwarderDao  {
-
-    public List<Forwarder> getForwardersByShop(int shopId) throws PersistException;
-
-    public List<Forwarder> getForwardersByCar(int carId) throws PersistException;
+public interface ForwarderDao extends GenericDao<Forwarder, Integer>{
+    public Forwarder findByUsernameAndPassword(String username, String password);
 }

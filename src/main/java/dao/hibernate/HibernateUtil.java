@@ -23,11 +23,11 @@ public class HibernateUtil {
         }
     }
 
-    public static SessionFactory getSessionFactory() {
+    protected static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
 
-    public static void shutdown() {
+    protected static void shutdown() {
         // Чистит кеш и закрывает соединение с БД
         getSessionFactory().close();
     }

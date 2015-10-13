@@ -1,6 +1,5 @@
 package action;
 
-import dao.DaoFactory;
 import dao.mysql.MySqlClientDao;
 import dao.mysql.MySqlDaoFactory;
 import models.Client;

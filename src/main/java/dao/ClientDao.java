@@ -4,8 +4,6 @@ import models.Client;
 
 import java.util.List;
 
-
-public interface ClientDao {
-    Client getByPK(Integer productId) throws PersistException;
-    public List<Client> getAll() throws PersistException;
+public interface ClientDao extends GenericDao<Client, Integer>{
+    public Client findByUsernameAndPassword(String username, String password);
 }

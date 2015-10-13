@@ -4,10 +4,7 @@ import models.Product;
 
 import java.util.List;
 
-
-public interface ProductDao {
-    public Product getByPK(Integer productId, boolean withOrders) throws PersistException;
-    public List<Product> getProductByCategory(Integer categoryId) throws PersistException;
-    public List<Product> getProductsByOrder(Integer orderId) throws PersistException;
-    public List<Product> getAllProduct() throws PersistException;
+public interface ProductDao extends GenericDao<Product, Integer>{
+    public List<Product> getAllByCategory(Integer categoryId);
+    public List<Product> getAllByOrder(Integer orderId);
 }

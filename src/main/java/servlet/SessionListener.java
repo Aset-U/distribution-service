@@ -2,7 +2,6 @@ package servlet;
 
 
 import dao.CategoryDao;
-import dao.DaoFactory;
 import dao.ProductDao;
 import dao.mysql.MySqlDaoFactory;
 import dao.mysql.MySqlOrderDao;

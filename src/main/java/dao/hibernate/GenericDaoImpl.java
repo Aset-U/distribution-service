@@ -9,12 +9,12 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
 
-public abstract class GenericDaoIml<E, K extends Serializable> implements GenericDao<E,K> {
+public abstract class GenericDaoImpl<E, K extends Serializable> implements GenericDao<E,K> {
 
     private static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
     protected Class<? extends E> daoType;
 
-    public GenericDaoIml() {
+    public GenericDaoImpl() {
         Type t = getClass().getGenericSuperclass();
         ParameterizedType pt = (ParameterizedType) t;
         daoType = (Class) pt.getActualTypeArguments()[0];

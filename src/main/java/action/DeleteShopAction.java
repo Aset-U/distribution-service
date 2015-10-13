@@ -1,7 +1,6 @@
 package action;
 
 import com.mysql.jdbc.Connection;
-import dao.DaoFactory;
 import dao.mysql.MySqlDaoFactory;
 import dao.mysql.MySqlShopDao;
 import models.Client;

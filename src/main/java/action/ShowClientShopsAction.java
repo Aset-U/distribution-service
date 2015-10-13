@@ -1,7 +1,6 @@
 package action;
 
 
-import dao.DaoFactory;
 import dao.ShopDao;
 import dao.mysql.MySqlDaoFactory;
 import models.Client;

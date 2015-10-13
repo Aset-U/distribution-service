@@ -1,7 +1,6 @@
 package action;
 
 
-import dao.DaoFactory;
 import dao.mysql.MySqlDaoFactory;
 import dao.mysql.MySqlOrderDao;
 import dao.mysql.MySqlOrderItemDao;
