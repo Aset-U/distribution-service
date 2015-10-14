@@ -71,7 +71,7 @@ public class MySqlProductDao extends AbstractJDBCDao<Product, Integer> implement
     }
 
     @Override
-    public  List<Product> getProductByCategory(Integer categoryId) throws PersistException {
+    public  List<Product> getProductsByCategory(Integer categoryId) throws PersistException {
         List<Product> list;
         String sql = getSelectQuery();
         sql += " WHERE category_id = ?";
@@ -104,7 +104,7 @@ public class MySqlProductDao extends AbstractJDBCDao<Product, Integer> implement
     }
 
     @Override
-    public List<Product> getAllProduct() throws PersistException {
+    public List<Product> getAll() throws PersistException {
         return super.getAll();
     }
 

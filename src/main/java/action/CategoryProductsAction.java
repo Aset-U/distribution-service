@@ -22,7 +22,7 @@ public class CategoryProductsAction implements Action{
         DaoFactory daoFactory = MySqlDaoFactory.getInstance();
         Connection connection = (Connection)daoFactory.getContext();
         ProductDao productDao = (ProductDao) daoFactory.getDao(connection, Product.class);
-        List<Product> products = productDao.getProductByCategory(Integer.parseInt(id));
+        List<Product> products = productDao.getProductsByCategory(Integer.parseInt(id));
 
         HttpSession session = request.getSession();
         session.setAttribute("categoryProducts", products);

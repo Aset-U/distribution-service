@@ -83,7 +83,7 @@ public class MySqlCategoryDao  extends AbstractJDBCDao<Category, Integer> implem
     }
 
     @Override
-    public Category getName(String name) throws PersistException {
+    public Category getByName(String name) throws PersistException {
         List<Category> list;
         String sql = getSelectQuery();
         sql += " WHERE name = ?";

@@ -56,7 +56,7 @@ public class MySqlShopDao extends AbstractJDBCDao<Shop, Integer> implements Shop
       //   addRelation(Shop.class, "manager");
     }
     @Override
-    public Shop getShopByName(String name) throws PersistException {
+    public Shop getByName(String name) throws PersistException {
         List<Shop> list;
         String sql = getSelectQuery();
         sql += " WHERE name = ?";
@@ -77,7 +77,7 @@ public class MySqlShopDao extends AbstractJDBCDao<Shop, Integer> implements Shop
     }
 
     @Override
-    public Shop getShopByAddress(String address) throws PersistException {
+    public Shop getByAddress(String address) throws PersistException {
         List<Shop> list;
         String sql = getSelectQuery();
         sql += " WHERE address = ?";

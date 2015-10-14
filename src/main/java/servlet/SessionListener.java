@@ -31,7 +31,7 @@ public class SessionListener implements HttpSessionListener {
         ProductDao productDao = (ProductDao) factory.getDao(connection, Product.class);
         CategoryDao categoryDao = (CategoryDao) factory.getDao(connection, Category.class);
 
-        List<Product> products = productDao.getAllProduct();
+        List<Product> products = productDao.getAll();
         List<Category> categories = categoryDao.getAllCategories();
 
         session.setAttribute("allProducts", products);
