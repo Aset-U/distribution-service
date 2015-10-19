@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface ProductDao extends GenericDao<Product, Integer>{
     public List<Product> getAllByCategory(Integer categoryId);
-    public List<Product> getAllByOrder(Integer orderId);
+
 }
