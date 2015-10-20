@@ -19,10 +19,10 @@ public class CategoryProductsAction implements Action{
     @Override
     public ActionResult execute(HttpServletRequest request) throws ActionException {
         String id = request.getParameter("categoryId");
-        DaoFactory daoFactory = MySqlDaoFactory.getInstance();
-        Connection connection = (Connection)daoFactory.getContext();
-        ProductDao productDao = (ProductDao) daoFactory.getDao(connection, Product.class);
-        List<Product> products = productDao.getProductsByCategory(Integer.parseInt(id));
+        DaoFactory factory = MySqlDaoFactory.getInstance();
+        Connection connection = (Connection)factory.getContext();
+        ProductDao productDao = (ProductDao) factory.getDao(connection, Product.class);
+        List<Product> products = productDao.findByCategory(Integer.parseInt(id));
 
         HttpSession session = request.getSession();
         session.setAttribute("categoryProducts", products);

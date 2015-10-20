@@ -1,6 +1,8 @@
 package dao;
 
 
+import entity.Client;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -18,7 +20,7 @@ public interface GenericDao<T extends Identified<PK>, PK extends Serializable> {
     public T persist(T object)  throws PersistException;
 
     /** Возвращает объект соответствующий записи с первичным ключом key или null */
-    public T getByPK(PK key) throws PersistException;
+    public T findByPK(PK key) throws PersistException;
 
     /** Сохраняет состояние объекта group в базе данных */
     public void update(T object) throws PersistException;

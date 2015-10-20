@@ -2,6 +2,8 @@ package action;
 
 
 import dao.DaoFactory;
+import dao.OrderDao;
+import dao.OrderItemDao;
 import dao.mysql.MySqlDaoFactory;
 import dao.mysql.MySqlOrderDao;
 import dao.mysql.MySqlOrderItemDao;
@@ -30,9 +32,9 @@ public class ShowAllOrdersAction implements Action {
 
         try(Connection connection = (Connection) factory.getContext())
         {
-            MySqlOrderDao orderDao = (MySqlOrderDao) factory.getDao(connection, Order.class);
-            MySqlOrderItemDao orderItemDao = (MySqlOrderItemDao) factory.getDao(connection, OrderItem.class);
-            List<Order> allOrders = orderDao.getByClientId(client.getId());
+            OrderDao orderDao = (OrderDao) factory.getDao(connection, Order.class);
+            OrderItemDao orderItemDao = (OrderItemDao) factory.getDao(connection, OrderItem.class);
+            List<Order> allOrders = orderDao.findByClient(client.getId());
             List<Order> clientOrders = new ArrayList<>();
 
 
@@ -42,7 +44,7 @@ public class ShowAllOrdersAction implements Action {
                 }
             }
             for (Order cOrder : clientOrders) {
-                List<OrderItem> items = orderItemDao.getByOrderId(cOrder.getId());
+                List<OrderItem> items = orderItemDao.findByOrderId(cOrder.getId());
                 cOrder.setItems(items);
             }
             session.setAttribute("orders", clientOrders);

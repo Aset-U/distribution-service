@@ -1,8 +1,8 @@
 package dao.mysql;
 
+import dao.AdminDao;
 import dao.DaoFactory;
 import dao.PersistException;
-import dao.UserDao;
 import entity.Admin;
 
 import java.sql.Connection;
@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MySqlAdminDao extends AbstractJDBCDao<Admin, Integer> implements UserDao {
+public class MySqlAdminDao extends AbstractJDBCDao<Admin, Integer> implements AdminDao {
 
     public MySqlAdminDao(DaoFactory<Connection> parentFactory, Connection connection) {
         super(parentFactory, connection);
@@ -95,7 +95,7 @@ public class MySqlAdminDao extends AbstractJDBCDao<Admin, Integer> implements Us
     }
 
     @Override
-    public Admin getUserByUsernameAndPassword(String username, String password) throws PersistException {
+    public Admin findByUsernameAndPassword(String username, String password) throws PersistException {
         List<Admin> list;
         String sql = getSelectQuery();
         sql += " WHERE username = ? AND password = ?";

@@ -2,6 +2,7 @@ package dao.mysql;
 
 import dao.DaoFactory;
 import dao.OrderDao;
+import dao.OrderItemDao;
 import dao.PersistException;
 import entity.*;
 
@@ -42,16 +43,16 @@ public class MySqlOrderDao extends AbstractJDBCDao<Order, Integer> implements Or
         return "DELETE FROM distribution.order WHERE id= ?;";
     }
 
-  public Order getByPK(Integer orderId, boolean items) throws PersistException {
-       Order order = getByPK(orderId);
+  public Order getByPKWithItems(Integer orderId, boolean items) throws PersistException {
+       Order order = findByPK(orderId);
 
        if (items)
        {
            List<OrderItem> orderItems = null;
            DaoFactory factory = MySqlDaoFactory.getInstance();
            try (Connection connection = (Connection) factory.getContext()) {
-               MySqlOrderItemDao orderItemDao = (MySqlOrderItemDao) factory.getDao(connection, OrderItem.class);
-               orderItems = orderItemDao.getByOrderId(orderId);
+               OrderItemDao orderItemDao = (OrderItemDao) factory.getDao(connection, OrderItem.class);
+               orderItems = orderItemDao.findByOrderId(orderId);
                order.setItems(orderItems);
            } catch (Exception e) {
                throw new PersistException(e);
@@ -61,7 +62,7 @@ public class MySqlOrderDao extends AbstractJDBCDao<Order, Integer> implements Or
     }
 
     @Override
-    public List<Order> getByClientId(Integer clientId) throws PersistException {
+    public List<Order> findByClient(Integer clientId) throws PersistException {
         List<Order> list;
         String sql = getSelectQuery();
         sql += " WHERE client_id = ?";
@@ -79,7 +80,7 @@ public class MySqlOrderDao extends AbstractJDBCDao<Order, Integer> implements Or
     }
 
     @Override
-    public Order getByStatus(Status status) throws PersistException {
+    public Order findByStatus(Status status) throws PersistException {
         List<Order> list;
         String sql = getSelectQuery();
         sql += " WHERE status = ?";
@@ -99,22 +100,6 @@ public class MySqlOrderDao extends AbstractJDBCDao<Order, Integer> implements Or
         return list.iterator().next();
     }
 
-    @Override
-    public List<Order> getOrdersByProductId(Integer productId) throws PersistException {
-        List<Order> list;
-        String sql = getSelectQuery();
-        sql += " INNER JOIN product_order ON product.id = product_order.Product_id " +
-                "INNER JOIN distribution.order ON product_order.Order_id = distribution.order.id" +
-                " WHERE distribution.order.id = " + productId;
-
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            ResultSet rs = statement.executeQuery();
-            list = parseResultSet(rs);
-        } catch (Exception e) {
-            throw new PersistException(e);
-        }
-        return list;
-    }
 
     @Override
     protected List<Order> parseResultSet(ResultSet rs) throws PersistException {

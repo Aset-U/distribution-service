@@ -103,11 +103,6 @@ public class MySqlCategoryDao  extends AbstractJDBCDao<Category, Integer> implem
         return list.iterator().next();
     }
 
-    @Override
-    public List<Category> getAllCategories() throws PersistException {
-        return getAll();
-    }
-
     private class PersistCategory extends Category {
         public void setId(int id) {
             super.setId(id);

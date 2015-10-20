@@ -56,7 +56,7 @@ public class MySqlShopDao extends AbstractJDBCDao<Shop, Integer> implements Shop
       //   addRelation(Shop.class, "manager");
     }
     @Override
-    public Shop getByName(String name) throws PersistException {
+    public Shop findByName(String name) throws PersistException {
         List<Shop> list;
         String sql = getSelectQuery();
         sql += " WHERE name = ?";
@@ -77,7 +77,7 @@ public class MySqlShopDao extends AbstractJDBCDao<Shop, Integer> implements Shop
     }
 
     @Override
-    public Shop getByAddress(String address) throws PersistException {
+    public Shop findByAddress(String address) throws PersistException {
         List<Shop> list;
         String sql = getSelectQuery();
         sql += " WHERE address = ?";
@@ -98,7 +98,7 @@ public class MySqlShopDao extends AbstractJDBCDao<Shop, Integer> implements Shop
     }
 
     @Override
-    public List<Shop> getShopsByManager(int clientId) throws PersistException {
+    public List<Shop> findByManager(int clientId) throws PersistException {
         List<Shop> list;
         String sql = getSelectQuery();
         sql += " WHERE manager_id = ?";
@@ -114,7 +114,7 @@ public class MySqlShopDao extends AbstractJDBCDao<Shop, Integer> implements Shop
     }
 
     @Override
-    public List<Shop> getShopsByForwarder(int forwarderId) throws PersistException {
+    public List<Shop> findShopsByForwarder(int forwarderId) throws PersistException {
         List<Shop> list;
         String sql = getSelectQuery();
         sql += " INNER JOIN shop_forwarder ON shop.id = shop_forwarder.shop_id " +
@@ -177,9 +177,4 @@ public class MySqlShopDao extends AbstractJDBCDao<Shop, Integer> implements Shop
             throw new PersistException(e);
         }
     }
-
-
-
-
-
 }

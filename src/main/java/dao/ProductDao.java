@@ -5,9 +5,8 @@ import entity.Product;
 import java.util.List;
 
 
-public interface ProductDao {
-    public Product getByPK(Integer productId, boolean withOrders) throws PersistException;
-    public List<Product> getProductsByCategory(Integer categoryId) throws PersistException;
-    public List<Product> getProductsByOrder(Integer orderId) throws PersistException;
-    public List<Product> getAll() throws PersistException;
+public interface ProductDao extends GenericDao<Product, Integer> {
+
+    public List<Product> findByCategory(Integer categoryId) throws PersistException;
+
 }

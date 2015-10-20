@@ -34,7 +34,7 @@ public class DeleteProductCartAction implements Action {
         try(Connection connection = (Connection)factory.getContext())
         {
             ProductDao productDao = (ProductDao) factory.getDao(connection, Product.class);
-            Product product = productDao.getByPK(Integer.parseInt(productId), false);
+            Product product = productDao.findByPK(Integer.parseInt(productId));
             cart.update(product, "0");
 
         } catch (SQLException e) {

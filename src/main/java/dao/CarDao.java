@@ -5,7 +5,7 @@ import entity.Car;
 
 import java.util.List;
 
-public interface CarDao {
+public interface CarDao extends GenericDao<Car, Integer> {
 
     public Car getCarByNumber(String number) throws PersistException;
 

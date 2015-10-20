@@ -1,9 +1,7 @@
 package servlet;
 
 
-import dao.CategoryDao;
-import dao.DaoFactory;
-import dao.ProductDao;
+import dao.*;
 import dao.mysql.MySqlDaoFactory;
 import dao.mysql.MySqlOrderDao;
 import dao.mysql.MySqlOrderItemDao;
@@ -32,7 +30,7 @@ public class SessionListener implements HttpSessionListener {
         CategoryDao categoryDao = (CategoryDao) factory.getDao(connection, Category.class);
 
         List<Product> products = productDao.getAll();
-        List<Category> categories = categoryDao.getAllCategories();
+        List<Category> categories = categoryDao.getAll();
 
         session.setAttribute("allProducts", products);
         session.setAttribute("categories", categories);
@@ -53,8 +51,8 @@ public class SessionListener implements HttpSessionListener {
         List<OrderItem> persistOrderItems = null;
         try(Connection connection = (Connection) factory.getContext())
         {
-            MySqlOrderDao orderDao = (MySqlOrderDao) factory.getDao(connection, Order.class);
-            MySqlOrderItemDao orderItemDao = (MySqlOrderItemDao) factory.getDao(connection, OrderItem.class);
+            OrderDao orderDao = (OrderDao) factory.getDao(connection, Order.class);
+            OrderItemDao orderItemDao = (OrderItemDao) factory.getDao(connection, OrderItem.class);
             Order persistCart = null;
             if (cart.getId() == null) {
                 persistCart = orderDao.create();
@@ -62,7 +60,7 @@ public class SessionListener implements HttpSessionListener {
                 orderDao.update(persistCart);
             }
             else {
-                persistOrderItems = orderItemDao.getByOrderId(cart.getId());
+                persistOrderItems = orderItemDao.findByOrderId(cart.getId());
             }
 
             if (persistOrderItems == null) {

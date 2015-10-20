@@ -6,9 +6,9 @@ import entity.Forwarder;
 
 import java.util.List;
 
-public interface ForwarderDao  {
+public interface ForwarderDao extends GenericDao<Forwarder, Integer>, UserSearch {
 
-    public List<Forwarder> getForwardersByShop(int shopId) throws PersistException;
+    public List<Forwarder> findByShop(int shopId) throws PersistException;
 
-    public List<Forwarder> getForwardersByCar(int carId) throws PersistException;
+    public List<Forwarder> findByCar(int carId) throws PersistException;
 }

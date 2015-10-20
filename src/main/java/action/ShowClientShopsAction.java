@@ -28,7 +28,7 @@ public class ShowClientShopsAction implements Action{
         try (Connection connection = (Connection) factory.getContext())
         {
             ShopDao shopDao = (ShopDao) factory.getDao(connection, Shop.class);
-            List<Shop> shopList = shopDao.getShopsByManager(client.getId());
+            List<Shop> shopList = shopDao.findByManager(client.getId());
 
             session.setAttribute("shopList", shopList);
 

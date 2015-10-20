@@ -4,16 +4,13 @@ package action;
 import dao.DaoFactory;
 import dao.OrderDao;
 import dao.mysql.MySqlDaoFactory;
-import dao.mysql.MySqlOrderItemDao;
 import entity.Order;
-import entity.OrderItem;
 import resource.ConfigurationManager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
 
 public class ShowOrderAction implements Action {
 
@@ -28,12 +25,11 @@ public class ShowOrderAction implements Action {
 
         try(Connection connection = (Connection) factory.getContext())
         {
-
             OrderDao orderDao = (OrderDao) factory.getDao(connection, Order.class);
-
-            Order order = orderDao.getByPK(id, true);
+            Order order = orderDao.getByPKWithItems(id, true);
             HttpSession session = request.getSession();
             session.setAttribute("clientOrder", order);
+
         }catch (SQLException e) {
             e.printStackTrace();
         }

@@ -4,6 +4,7 @@ import dao.DaoFactory;
 import dao.PersistException;
 import dao.ProductDao;
 import entity.Category;
+import entity.Client;
 import entity.Order;
 import entity.Product;
 
@@ -44,34 +45,8 @@ public class MySqlProductDao extends AbstractJDBCDao<Product, Integer> implement
         return "DELETE FROM product WHERE id= ?;";
     }
 
-    public Product getByPK(Integer productId, boolean withOrders) throws PersistException {
-        Product product = getByPK(productId);
-
-        if (withOrders)
-        {
-            List<Order> orders = null;
-            DaoFactory factory = MySqlDaoFactory.getInstance();
-            Connection connection = (Connection) factory.getContext();
-            MySqlOrderDao orderDao = (MySqlOrderDao) factory.getDao(connection, Order.class);
-
-            String sql = "SELECT order.id, client_id, status_id " +
-                    "FROM order join product_order " +
-                    "where product_order.Order_id = orders.id " +
-                    "and product_order.Product_id = " + productId + ";";
-
-            try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                ResultSet rs = statement.executeQuery();
-                orders = orderDao.parseResultSet(rs);
-                product.setOrders(orders);
-            } catch (Exception e) {
-                throw new PersistException(e);
-            }
-        }
-        return product;
-    }
-
     @Override
-    public  List<Product> getProductsByCategory(Integer categoryId) throws PersistException {
+    public  List<Product> findByCategory(Integer categoryId) throws PersistException {
         List<Product> list;
         String sql = getSelectQuery();
         sql += " WHERE category_id = ?";
@@ -85,29 +60,6 @@ public class MySqlProductDao extends AbstractJDBCDao<Product, Integer> implement
 
         return list;
     }
-
-    @Override
-    public List<Product> getProductsByOrder(Integer orderId) throws PersistException {
-        List<Product> list;
-        String sql = getSelectQuery();
-        sql += " INNER JOIN product_order ON product.id = product_order.Product_id " +
-                "INNER JOIN order ON product_order.Order_id = order.id" +
-                " WHERE order.id = " + orderId;
-
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            ResultSet rs = statement.executeQuery();
-            list = parseResultSet(rs);
-        } catch (Exception e) {
-            throw new PersistException(e);
-        }
-        return list;
-    }
-
-    @Override
-    public List<Product> getAll() throws PersistException {
-        return super.getAll();
-    }
-
 
     @Override
     protected List<Product> parseResultSet(ResultSet rs) throws PersistException {

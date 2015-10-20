@@ -2,6 +2,7 @@ package dao.mysql;
 
 
 import dao.DaoFactory;
+import dao.OrderItemDao;
 import dao.PersistException;
 import entity.Order;
 import entity.OrderItem;
@@ -13,7 +14,7 @@ import java.sql.ResultSet;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MySqlOrderItemDao extends AbstractJDBCDao<OrderItem, Integer>{
+public class MySqlOrderItemDao extends AbstractJDBCDao<OrderItem, Integer> implements OrderItemDao{
 
     public MySqlOrderItemDao(DaoFactory<Connection> parentFactory, Connection connection) {
         super(parentFactory, connection);
@@ -43,7 +44,7 @@ public class MySqlOrderItemDao extends AbstractJDBCDao<OrderItem, Integer>{
         return "DELETE FROM order_item WHERE id= ?;";
     }
 
-    public List<OrderItem> getByOrderId(int orderId) throws PersistException{
+    public List<OrderItem> findByOrderId(int orderId) throws PersistException{
         List<OrderItem> list;
         String sql = getSelectQuery();
         sql += " WHERE order_id = ?";

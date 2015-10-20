@@ -3,7 +3,6 @@ package dao.mysql;
 import dao.DaoFactory;
 import dao.ForwarderDao;
 import dao.PersistException;
-import dao.UserDao;
 import entity.Forwarder;
 
 import java.sql.Connection;
@@ -13,7 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-public class MySqlForwarderDao extends AbstractJDBCDao<Forwarder, Integer> implements UserDao, ForwarderDao {
+public class MySqlForwarderDao extends AbstractJDBCDao<Forwarder, Integer> implements ForwarderDao {
 
     public MySqlForwarderDao(DaoFactory<Connection> parentFactory, Connection connection) {
         super(parentFactory, connection);
@@ -98,7 +97,7 @@ public class MySqlForwarderDao extends AbstractJDBCDao<Forwarder, Integer> imple
     }
 
     @Override
-    public Forwarder getUserByUsernameAndPassword(String username, String password) throws PersistException {
+    public Forwarder findByUsernameAndPassword(String username, String password) throws PersistException {
         List<Forwarder> list;
         String sql = getSelectQuery();
         sql += " WHERE username = ? AND password = ?";
@@ -120,7 +119,7 @@ public class MySqlForwarderDao extends AbstractJDBCDao<Forwarder, Integer> imple
     }
 
     @Override
-    public List<Forwarder> getForwardersByShop(int shopId) throws PersistException {
+    public List<Forwarder> findByShop(int shopId) throws PersistException {
         List<Forwarder> list;
         String sql = getSelectQuery();
         sql += " INNER JOIN shop_forwarder ON forwarder.id = shop_forwarder.forwarder_id " +
@@ -137,10 +136,10 @@ public class MySqlForwarderDao extends AbstractJDBCDao<Forwarder, Integer> imple
     }
 
     @Override
-    public List<Forwarder> getForwardersByCar(int carId) throws PersistException {
+    public List<Forwarder> findByCar(int carId) throws PersistException {
         List<Forwarder> list;
         String sql = getSelectQuery();
-        sql += " INNER JOIN forwarder_car ON forwarders.id = forwarder_car.forwarder_id " +
+        sql += " INNER JOIN forwarder_car ON forwarder.id = forwarder_car.forwarder_id " +
                 "INNER JOIN cars ON forwarder_car.car_id = cars.id" +
                 " WHERE cars.id = " + carId;
 

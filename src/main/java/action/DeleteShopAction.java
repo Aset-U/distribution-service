@@ -2,6 +2,7 @@ package action;
 
 import com.mysql.jdbc.Connection;
 import dao.DaoFactory;
+import dao.ShopDao;
 import dao.mysql.MySqlDaoFactory;
 import dao.mysql.MySqlShopDao;
 import entity.Client;
@@ -27,11 +28,11 @@ public class DeleteShopAction implements Action{
 
         try(Connection connection = (Connection) factory.getContext())
         {
-            MySqlShopDao shopDao = (MySqlShopDao) factory.getDao(connection, Shop.class);
-            Shop shop  = shopDao.getByPK(Integer.parseInt(shopId));
+            ShopDao shopDao = (ShopDao) factory.getDao(connection, Shop.class);
+            Shop shop  = shopDao.findByPK(Integer.parseInt(shopId));
             shopDao.delete(shop);
 
-            List<Shop> shopList = shopDao.getShopsByManager(client.getId());
+            List<Shop> shopList = shopDao.findByManager(client.getId());
 
             session.setAttribute("shops", shopList);
         } catch (SQLException e) {

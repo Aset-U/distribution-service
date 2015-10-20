@@ -70,7 +70,7 @@ public abstract class AbstractJDBCDao<T extends Identified<PK>, PK extends Integ
     private Set<ManyToOne> relations = new HashSet<ManyToOne>();
 
     @Override
-    public T getByPK(Integer key) throws PersistException {
+    public T findByPK(Integer key) throws PersistException {
         List<T> list;
         String sql = getSelectQuery();
         sql += " WHERE id = ?";
@@ -180,7 +180,7 @@ public abstract class AbstractJDBCDao<T extends Identified<PK>, PK extends Integ
     }
 
     protected Identified getDependence(Class<? extends Identified> dtoClass, Serializable pk) throws PersistException {
-        return parentFactory.getDao(connection, dtoClass).getByPK(pk);
+        return parentFactory.getDao(connection, dtoClass).findByPK(pk);
     }
 
     protected boolean addRelation(Class<? extends Identified> ownerClass, String field) {

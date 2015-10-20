@@ -3,9 +3,7 @@ package dao.mysql;
 import dao.ClientDao;
 import dao.DaoFactory;
 import dao.PersistException;
-import dao.UserDao;
 import entity.Client;
-import entity.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,9 +12,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-public class MySqlClientDao extends AbstractJDBCDao<Client, Integer> implements UserDao, ClientDao {
+public class MySqlClientDao extends AbstractJDBCDao<Client, Integer> implements ClientDao {
 
-    public MySqlClientDao (DaoFactory<Connection> parentFactory, Connection connection) {
+    public MySqlClientDao(DaoFactory<Connection> parentFactory, Connection connection) {
         super(parentFactory, connection);
     }
     @Override
@@ -93,8 +91,6 @@ public class MySqlClientDao extends AbstractJDBCDao<Client, Integer> implements 
         }
     }
 
-
-
     @Override
     public Client create() throws PersistException {
         Client c = new Client();
@@ -103,7 +99,7 @@ public class MySqlClientDao extends AbstractJDBCDao<Client, Integer> implements 
 
 
     @Override
-    public Client getUserByUsernameAndPassword(String username, String password) throws PersistException {
+    public Client findByUsernameAndPassword(String username, String password) throws PersistException {
         List<Client> list;
         String sql = getSelectQuery();
         sql += " WHERE username = ? AND password = ?";
@@ -124,17 +120,6 @@ public class MySqlClientDao extends AbstractJDBCDao<Client, Integer> implements 
         return list.iterator().next();
     }
 
-    public List<Client> getAll() throws PersistException {
-        List<Client> list;
-        String sql = getSelectQuery();
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            ResultSet rs = statement.executeQuery();
-            list = parseResultSet(rs);
-        } catch (Exception e) {
-            throw new PersistException(e);
-        }
-        return list;
-    }
     private class PersistClient extends Client {
         public void setId(int id) {
             super.setId(id);

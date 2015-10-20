@@ -6,13 +6,12 @@ import entity.Status;
 
 import java.util.List;
 
-public interface OrderDao {
+public interface OrderDao extends GenericDao<Order, Integer> {
 
-    public Order getByPK(Integer orderId, boolean items) throws PersistException;
+    public Order getByPKWithItems(Integer orderId, boolean items) throws PersistException;
 
-    public List<Order> getByClientId(Integer clientId) throws PersistException;
+    public List<Order> findByClient(Integer clientId) throws PersistException;
 
-    public Order getByStatus(Status status) throws PersistException;
+    public Order findByStatus(Status status) throws PersistException;
 
-    List<Order> getOrdersByProductId(Integer productId) throws PersistException;
 }

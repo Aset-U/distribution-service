@@ -2,6 +2,8 @@ package action;
 
 
 import dao.DaoFactory;
+import dao.OrderDao;
+import dao.OrderItemDao;
 import dao.ShopDao;
 import dao.mysql.MySqlDaoFactory;
 import dao.mysql.MySqlOrderDao;
@@ -40,10 +42,10 @@ public class ConfirmOrderAction implements Action {
         }
         try(Connection connection = (Connection) factory.getContext())
         {
-            MySqlShopDao shopDao = (MySqlShopDao) factory.getDao(connection, Shop.class);
-            MySqlOrderDao orderDao = (MySqlOrderDao) factory.getDao(connection, Order.class);
-            MySqlOrderItemDao orderItemDao = (MySqlOrderItemDao) factory.getDao(connection, OrderItem.class);
-            Shop shop = shopDao.getByPK(Integer.parseInt(shopId));
+            ShopDao shopDao = (ShopDao) factory.getDao(connection, Shop.class);
+            OrderDao orderDao = (OrderDao) factory.getDao(connection, Order.class);
+            OrderItemDao orderItemDao = (OrderItemDao) factory.getDao(connection, OrderItem.class);
+            Shop shop = shopDao.findByPK(Integer.parseInt(shopId));
 
             List<OrderItem> persistOrderItems = null;
 
@@ -64,7 +66,7 @@ public class ConfirmOrderAction implements Action {
 
             }
             else if (session.getAttribute("cart") != null) {
-                persistOrderItems = orderItemDao.getByOrderId(checkout.getId());
+                persistOrderItems = orderItemDao.findByOrderId(checkout.getId());
                 checkout.setStatus(Status.INSPECTED);
                 checkout.setShop(shop);
                 orderDao.update(checkout);
@@ -95,16 +97,16 @@ public class ConfirmOrderAction implements Action {
                 }
             }
 
-            List<Order> allOrders = orderDao.getByClientId(client.getId());
+            List<Order> allOrders = orderDao.findByClient(client.getId());
             List<Order> clientOrders = new ArrayList<>();
 
-            for (Order ord : allOrders) {
-                if (!ord.getStatus().equals(Status.DRAFT)) {
-                    clientOrders.add(ord);
+            for (Order o : allOrders) {
+                if (!o.getStatus().equals(Status.DRAFT)) {
+                    clientOrders.add(o);
                 }
             }
             for (Order cOrder : clientOrders) {
-                List<OrderItem> items = orderItemDao.getByOrderId(cOrder.getId());
+                List<OrderItem> items = orderItemDao.findByOrderId(cOrder.getId());
                 cOrder.setItems(items);
             }
             session.setAttribute("orders", clientOrders);

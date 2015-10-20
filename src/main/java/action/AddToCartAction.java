@@ -54,7 +54,7 @@ public class AddToCartAction implements Action {
                 String productQuantity = request.getParameter("quantity");
                 quantity = Short.parseShort(productQuantity);
                 ProductDao productDao = (ProductDao) factory.getDao(connection, Product.class);
-                Product product = productDao.getByPK(Integer.parseInt(productId), false);
+                Product product = productDao.findByPK(Integer.parseInt(productId));
                 for (int i = 1; i<= quantity; i++) {
                     cart.addItem(product);
                 }

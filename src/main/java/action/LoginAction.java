@@ -1,13 +1,10 @@
 package action;
 
 
-import dao.DaoFactory;
-import dao.ShopDao;
-import dao.UserDao;
+import dao.*;
 import dao.mysql.MySqlDaoFactory;
 import dao.mysql.MySqlOrderDao;
 import dao.mysql.MySqlOrderItemDao;
-import dao.mysql.MySqlUserDao;
 import entity.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,10 +31,10 @@ public class LoginAction implements Action{
         String password = request.getParameter(PASSWORD);
         ActionResult result = new ActionResult(page);
 
-        UserDao userDao = new MySqlUserDao();
+        UserSearch userSearch = new UserSearchImpl();
 
         HttpSession session = request.getSession();
-        User user = userDao.getUserByUsernameAndPassword(username, password);
+        User user = userSearch.findByUsernameAndPassword(username, password);
 
         if (user == null) {
             request.setAttribute("errorLoginPassMessage", MessageManager.getProperty("message.loginerror"));
@@ -69,13 +66,13 @@ public class LoginAction implements Action{
         DaoFactory factory = MySqlDaoFactory.getInstance();
         try(Connection connection = (Connection) factory.getContext())
         {
-            MySqlOrderDao orderDao = (MySqlOrderDao) factory.getDao(connection, Order.class);
-            MySqlOrderItemDao orderItemDao = (MySqlOrderItemDao) factory.getDao(connection, OrderItem.class);
+            OrderDao orderDao = (OrderDao) factory.getDao(connection, Order.class);
+            OrderItemDao orderItemDao = (OrderItemDao) factory.getDao(connection, OrderItem.class);
             ShopDao shopDao = (ShopDao) factory.getDao(connection, Shop.class);
-            List<Shop> shops = shopDao.getShopsByManager(client.getId());
+            List<Shop> shops = shopDao.findByManager(client.getId());
 
             Order cart = null;
-            List<Order> orders = orderDao.getByClientId(client.getId());
+            List<Order> orders = orderDao.findByClient(client.getId());
 
             if (orders != null) {
 
@@ -85,7 +82,7 @@ public class LoginAction implements Action{
                     }
                 }
                 if (cart != null) {
-                    List<OrderItem> orderItems = orderItemDao.getByOrderId(cart.getId());
+                    List<OrderItem> orderItems = orderItemDao.findByOrderId(cart.getId());
                     if (orderItems != null) {
                         cart.setItems(orderItems);
                     }

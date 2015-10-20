@@ -23,7 +23,7 @@ public class ShowProductAction implements Action{
         Product product = null;
         if (!productId.isEmpty()) {
             ProductDao productDao = (ProductDao) factory.getDao(connection, Product.class);
-            product = productDao.getByPK(Integer.parseInt(productId), false);
+            product = productDao.findByPK(Integer.parseInt(productId));
         }
         HttpSession session = request.getSession();
         session.setAttribute("product", product);

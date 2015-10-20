@@ -3,6 +3,7 @@ package action;
 
 import com.mysql.jdbc.Connection;
 import dao.DaoFactory;
+import dao.ShopDao;
 import dao.mysql.MySqlDaoFactory;
 import dao.mysql.MySqlShopDao;
 import entity.Client;
@@ -34,7 +35,7 @@ public class AddShopAction implements Action {
         {
             if (!name.isEmpty() && !address.isEmpty() && !phone.isEmpty()) {
 
-                MySqlShopDao shopDao = (MySqlShopDao) factory.getDao(connection, Shop.class);
+                ShopDao shopDao = (ShopDao) factory.getDao(connection, Shop.class);
 
                 Shop newShop = shopDao.create();
                 newShop.setName(name);
@@ -43,7 +44,7 @@ public class AddShopAction implements Action {
                 newShop.setManager(client);
                 shopDao.update(newShop);
 
-                List<Shop> shopList = shopDao.getShopsByManager(client.getId());
+                List<Shop> shopList = shopDao.findByManager(client.getId());
                 session.setAttribute("shops", shopList);
 
             } else {

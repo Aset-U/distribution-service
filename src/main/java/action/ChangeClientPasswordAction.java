@@ -1,10 +1,9 @@
 package action;
 
+import dao.ClientDao;
 import dao.DaoFactory;
-import dao.mysql.MySqlClientDao;
 import dao.mysql.MySqlDaoFactory;
 import entity.Client;
-import entity.Order;
 import resource.ConfigurationManager;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +29,7 @@ public class ChangeClientPasswordAction implements Action{
 
         try(Connection connection = (Connection) factory.getContext())
         {
-            MySqlClientDao clientDao = (MySqlClientDao) factory.getDao(connection, Client.class);
+            ClientDao clientDao = (ClientDao) factory.getDao(connection, Client.class);
 
             if (!currentPassword.equals(client.getPassword())) {
                 request.setAttribute("errorCurrent", "wrong input the current password");

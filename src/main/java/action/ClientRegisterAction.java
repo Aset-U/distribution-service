@@ -4,22 +4,19 @@ package action;
 import dao.ClientDao;
 import dao.DaoFactory;
 import dao.PersistException;
-import dao.UserDao;
-import dao.mysql.AbstractJDBCDao;
-import dao.mysql.MySqlClientDao;
 import dao.mysql.MySqlDaoFactory;
 import entity.Client;
 import resource.ConfigurationManager;
 
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ClientRegisterAction implements Action{
+
     private String page = ConfigurationManager.getProperty("page.login");
     ActionResult registration = new ActionResult(page);
     ActionResult home = new ActionResult("home", true);
@@ -34,11 +31,11 @@ public class ClientRegisterAction implements Action{
         String email = request.getParameter("email");
 
         DaoFactory factory = MySqlDaoFactory.getInstance();
-        MySqlClientDao clientDao = null;
+        ClientDao clientDao = null;
 
         try(Connection connection = (Connection) factory.getContext())
         {
-           clientDao = (MySqlClientDao) factory.getDao(connection,Client.class);
+           clientDao = (ClientDao) factory.getDao(connection,Client.class);
             List<Client> clients = new ArrayList<>(clientDao.getAll());
             for (Client client : clients) {
                 if (client.getUsername().equals(username)) {
