@@ -63,13 +63,9 @@ public abstract class GenericDaoImpl<E, K extends Serializable> implements Gener
         this.currentTransaction = currentTransaction;
     }
 
-    public void add(E entity) {
-        getCurrentSession().save(entity);
-    }
-
 
     public void save(E entity) {
-        getCurrentSession().saveOrUpdate(entity);
+        getCurrentSession().save(entity);
     }
 
 
@@ -78,7 +74,7 @@ public abstract class GenericDaoImpl<E, K extends Serializable> implements Gener
     }
 
 
-    public void remove(E entity) {
+    public void delete(E entity) {
         getCurrentSession().delete(entity);
     }
 
