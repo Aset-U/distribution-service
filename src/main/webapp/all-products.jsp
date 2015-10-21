@@ -45,8 +45,6 @@
               <li><a href="controller?command=pagination&paging=1">1</a></li>
               <li><a href="controller?command=pagination&paging=2">2</a></li>
               <li><a href="controller?command=pagination&paging=3">3</a></li>
-              <li><a href="#">4</a></li>
-              <li><a href="#">5</a></li>
               <c:if test="${currentPage lt 3}">
                   <li><a href="controller?command=pagination&paging=${currentPage + 1}">»</a></li>
               </c:if>

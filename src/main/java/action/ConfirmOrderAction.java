@@ -47,6 +47,7 @@ public class ConfirmOrderAction implements Action {
             OrderItemDao orderItemDao = (OrderItemDao) factory.getDao(connection, OrderItem.class);
             Shop shop = shopDao.findByPK(Integer.parseInt(shopId));
 
+
             List<OrderItem> persistOrderItems = null;
 
             if (checkout.getId() == null) {
@@ -78,8 +79,8 @@ public class ConfirmOrderAction implements Action {
                         orderItem.setQuantity(item.getQuantity());
                         orderItemDao.update(orderItem);
                     }
-                    }
                 }
+            }
 
             else if (session.getAttribute("cart") == null) {
                 order = orderDao.create();
@@ -100,9 +101,9 @@ public class ConfirmOrderAction implements Action {
             List<Order> allOrders = orderDao.findByClient(client.getId());
             List<Order> clientOrders = new ArrayList<>();
 
-            for (Order o : allOrders) {
-                if (!o.getStatus().equals(Status.DRAFT)) {
-                    clientOrders.add(o);
+            for (Order ord : allOrders) {
+                if (!ord.getStatus().equals(Status.DRAFT)) {
+                    clientOrders.add(ord);
                 }
             }
             for (Order cOrder : clientOrders) {

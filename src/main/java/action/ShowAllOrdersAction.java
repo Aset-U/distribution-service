@@ -37,17 +37,19 @@ public class ShowAllOrdersAction implements Action {
             List<Order> allOrders = orderDao.findByClient(client.getId());
             List<Order> clientOrders = new ArrayList<>();
 
-
-            for (Order ord : allOrders) {
-                if (!ord.getStatus().equals(Status.DRAFT)) {
-                    clientOrders.add(ord);
+            if (allOrders != null) {
+                for (Order ord : allOrders) {
+                    if (!ord.getStatus().equals(Status.DRAFT)) {
+                        clientOrders.add(ord);
+                    }
                 }
+                for (Order cOrder : clientOrders) {
+                    List<OrderItem> items = orderItemDao.findByOrderId(cOrder.getId());
+                    cOrder.setItems(items);
+                }
+                session.setAttribute("orders", clientOrders);
             }
-            for (Order cOrder : clientOrders) {
-                List<OrderItem> items = orderItemDao.findByOrderId(cOrder.getId());
-                cOrder.setItems(items);
-            }
-            session.setAttribute("orders", clientOrders);
+
 
         } catch (SQLException e) {
             e.printStackTrace();
