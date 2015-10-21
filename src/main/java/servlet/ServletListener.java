@@ -21,7 +21,7 @@ import java.util.List;
 
 
 @WebListener()
-public class SessionListener implements ServletRequestListener, HttpSessionListener {
+public class ServletListener implements ServletRequestListener, HttpSessionListener {
     DaoFactory factory = MySqlDaoFactory.getInstance();
     int page = 1;
     int recordsPerPage = 6;

@@ -109,19 +109,6 @@ public class Order extends Entity {
         return amount;
     }
 
-    public synchronized void calculateTotal(String surcharge) {
-
-        double amount = 0;
-
-        // cast surcharge as double
-        double s = Double.parseDouble(surcharge);
-
-        amount = this.getSubtotal();
-        amount += s;
-
-        total = amount;
-    }
-
     public synchronized double getTotal() {
 
         return total;
