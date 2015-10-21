@@ -3,6 +3,7 @@ package dao.mysql;
 import dao.*;
 
 
+import java.beans.Statement;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -51,8 +52,8 @@ public abstract class AbstractJDBCDao<T extends Identified<PK>, PK extends Integ
     /**
      * Разбирает ResultSet и возвращает список объектов соответствующих содержимому ResultSet.
      */
-    protected abstract List<T> parseResultSet(ResultSet rs) throws PersistException;
 
+    protected abstract List<T> parseResultSet(ResultSet rs) throws PersistException;
     /**
      * Устанавливает аргументы insert запроса в соответствии со значением полей объекта object.
      */

@@ -8,6 +8,7 @@ import entity.Client;
 import entity.Order;
 import entity.Product;
 
+import java.beans.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,6 +17,7 @@ import java.util.List;
 
 
 public class MySqlProductDao extends AbstractJDBCDao<Product, Integer> implements ProductDao{
+
 
     public MySqlProductDao(DaoFactory<Connection> parentFactory, Connection connection) {
         super(parentFactory, connection);
@@ -61,6 +63,19 @@ public class MySqlProductDao extends AbstractJDBCDao<Product, Integer> implement
         return list;
     }
 
+    public List<Product> getForPage(int offset, int noOfRecords){
+        List<Product> productList;
+        String sql = getSelectQuery();
+        sql += " limit " + offset + ", " + noOfRecords;
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            ResultSet rs = statement.executeQuery();
+            productList = parseResultSet(rs);
+        } catch (Exception e) {
+            throw new PersistException(e);
+        }
+        return productList;
+    }
+
     @Override
     protected List<Product> parseResultSet(ResultSet rs) throws PersistException {
         LinkedList<Product> result = new LinkedList<>();
@@ -79,7 +94,6 @@ public class MySqlProductDao extends AbstractJDBCDao<Product, Integer> implement
         }
         return result;
     }
-
     @Override
     protected void prepareStatementForInsert(PreparedStatement statement, Product object) throws PersistException {
         try {
@@ -106,6 +120,8 @@ public class MySqlProductDao extends AbstractJDBCDao<Product, Integer> implement
             throw new PersistException(e);
         }
     }
+
+
 
     @Override
     public Product create() throws PersistException {

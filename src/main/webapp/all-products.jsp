@@ -38,6 +38,21 @@
           </div>
         </div>
       </c:forEach>
+          <ul class="pagination pagination-sm">
+              <c:if test="${currentPage != 1}">
+                    <li class="disabled"><a href="controller?command=pagination&paging=${currentPage - 1}">«</a></li>
+              </c:if>
+              <li><a href="controller?command=pagination&paging=1">1</a></li>
+              <li><a href="controller?command=pagination&paging=2">2</a></li>
+              <li><a href="controller?command=pagination&paging=3">3</a></li>
+              <li><a href="#">4</a></li>
+              <li><a href="#">5</a></li>
+              <c:if test="${currentPage lt 3}">
+                  <li><a href="controller?command=pagination&paging=${currentPage + 1}">»</a></li>
+              </c:if>
+          </ul>
+
       </div>
+
 </body>
 </html>

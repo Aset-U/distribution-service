@@ -40,6 +40,7 @@ public class ActionFactory {
         actions.put("shopList", new ShowClientShopsAction());
         actions.put("addClientShop", new AddShopAction());
         actions.put("deleteClientShop", new DeleteShopAction());
+        actions.put("pagination", new PaginationForProductsAction());
     }
 
     public Action getAction(HttpServletRequest request) {

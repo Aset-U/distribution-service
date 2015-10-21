@@ -1,13 +1,17 @@
 package servlet;
 
 
+import com.sun.deploy.net.HttpRequest;
 import dao.*;
 import dao.mysql.MySqlDaoFactory;
 import dao.mysql.MySqlOrderDao;
 import dao.mysql.MySqlOrderItemDao;
 import entity.*;
 
+import javax.servlet.ServletRequestEvent;
+import javax.servlet.ServletRequestListener;
 import javax.servlet.annotation.WebListener;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
@@ -17,23 +21,41 @@ import java.util.List;
 
 
 @WebListener()
-public class SessionListener implements HttpSessionListener {
+public class SessionListener implements ServletRequestListener, HttpSessionListener {
     DaoFactory factory = MySqlDaoFactory.getInstance();
+    int page = 1;
+    int recordsPerPage = 6;
+
+
+    @Override
+    public void requestInitialized(ServletRequestEvent servletRequestEvent) {
+        HttpServletRequest request = (HttpServletRequest) servletRequestEvent.getServletRequest();
+        try(Connection connection = (Connection) factory.getContext()) {
+            ProductDao productDao = (ProductDao) factory.getDao(connection, Product.class);
+            List<Product> products = productDao.getForPage((page - 1) * recordsPerPage, recordsPerPage);
+            request.setAttribute("allProducts", products);
+            request.setAttribute("currentPage", page);
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void sessionCreated(HttpSessionEvent se) {
         HttpSession session = se.getSession();
 
-        DaoFactory factory = MySqlDaoFactory.getInstance();
-        Connection connection = (Connection) factory.getContext();
-        ProductDao productDao = (ProductDao) factory.getDao(connection, Product.class);
-        CategoryDao categoryDao = (CategoryDao) factory.getDao(connection, Category.class);
+        try(Connection connection = (Connection) factory.getContext()) {
 
-        List<Product> products = productDao.getAll();
-        List<Category> categories = categoryDao.getAll();
+            CategoryDao categoryDao = (CategoryDao) factory.getDao(connection, Category.class);
 
-        session.setAttribute("allProducts", products);
-        session.setAttribute("categories", categories);
+            List<Category> categories = categoryDao.getAll();
+            //List<Product> products = productDao.getForPage();
+          //  session.setAttribute("allProducts", products);
+
+            session.setAttribute("categories", categories);
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -103,4 +125,12 @@ public class SessionListener implements HttpSessionListener {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void requestDestroyed(ServletRequestEvent servletRequestEvent) {
+
+
+    }
+
+
 }
