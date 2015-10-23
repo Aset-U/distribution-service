@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class ActionFactory {
 
     private static Map<String, Action> actions = new HashMap<>();

@@ -82,8 +82,6 @@ public class Order extends Entity {
         }
     }
 
-
-
     public synchronized int getNumberOfItems() {
 
         numberOfItems = 0;
@@ -107,11 +105,6 @@ public class Order extends Entity {
         }
 
         return amount;
-    }
-
-    public synchronized double getTotal() {
-
-        return total;
     }
 
     public synchronized void clear() {
@@ -158,6 +151,11 @@ public class Order extends Entity {
     }
     public synchronized void setItems(List<OrderItem> items) {
         this.items = items;
+    }
+
+    public synchronized double getTotal() {
+
+        return total;
     }
 
     @Override

@@ -72,7 +72,7 @@ public class Product extends Entity {
 
     @Override
     public boolean equals(Object obj) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+
         if (!(obj instanceof Product)) {
             return false;
         }

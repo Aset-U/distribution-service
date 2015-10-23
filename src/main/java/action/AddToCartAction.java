@@ -32,6 +32,7 @@ public class AddToCartAction implements Action {
         {
             result = new ActionResult("/" + page + ".jsp");
             Client client = (Client) session.getAttribute("client");
+
             if (client == null) {
                 request.setAttribute("errorLoginPassMessage",
                         MessageManager.getProperty("message.loginerror"));
@@ -55,6 +56,7 @@ public class AddToCartAction implements Action {
                 quantity = Short.parseShort(productQuantity);
                 ProductDao productDao = (ProductDao) factory.getDao(connection, Product.class);
                 Product product = productDao.findByPK(Integer.parseInt(productId));
+
                 for (int i = 1; i<= quantity; i++) {
                     cart.addItem(product);
                 }

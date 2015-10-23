@@ -20,7 +20,7 @@ import java.util.List;
 
 
 public class LoginAction implements Action{
-    private static final Logger LOGGER = LoggerFactory.getLogger(LoginAction.class);
+
     private final static String USERNAME = "username";
     private final static String PASSWORD = "password";
 

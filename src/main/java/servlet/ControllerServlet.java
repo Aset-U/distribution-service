@@ -24,17 +24,14 @@ import java.util.List;
 
 public class ControllerServlet extends HttpServlet {
 
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
 
         String page = null;
 
         Action action = ActionFactory.getInstance().getAction(req);
 
         ActionResult result = action.execute(req);
-
 
         page = result.getView();
 
@@ -52,7 +49,6 @@ public class ControllerServlet extends HttpServlet {
             req.getSession().setAttribute("nullPage", MessageManager.getProperty("message.nullpage"));
             resp.sendRedirect(req.getContextPath() + page);
         }
-
     }
 
     @Override
@@ -69,7 +65,8 @@ public class ControllerServlet extends HttpServlet {
         }
        else if (query.contains("command")){
             Action action = ActionFactory.getInstance().getAction(req);
-            result = action.execute(req); }
+            result = action.execute(req);
+        }
 
         String page = result.getView();
 

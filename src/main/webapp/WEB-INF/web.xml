@@ -9,7 +9,6 @@
         <servlet-class>servlet.ControllerServlet</servlet-class>
     </servlet>
 
-
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>
         <url-pattern>/controller/*</url-pattern>
