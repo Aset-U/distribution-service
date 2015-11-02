@@ -1,3 +1,3 @@
 Онлайн магазин дистрибьюторской компании. 
 
-Имеется две ветки master и flexible. Реализация DAO слоя в ветки master осуществляется по средствам JDBC, в ветки flexible применяется Hibernate.
+Имеется две ветки master и flexible. Реализация DAO слоя в master осуществляется по средствам JDBC, в flexible применяется Hibernate.
