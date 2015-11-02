@@ -1,12 +1,8 @@
 package action;
 
 
-import dao.ShopDao;
-import dao.UserSearch;
-import dao.mysql.MySqlDaoFactory;
-import dao.mysql.MySqlOrderDao;
-import dao.mysql.MySqlOrderItemDao;
-import dao.mysql.MySqlUserDao;
+
+import service.*;
 import models.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,8 +12,6 @@ import resource.MessageManager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
 
@@ -33,10 +27,10 @@ public class LoginAction implements Action{
         String password = request.getParameter(PASSWORD);
         ActionResult result = new ActionResult(page);
 
-        UserSearch userSearch = new MySqlUserDao();
+        UserSearchService userSearchService = new UserSearchServiceImpl();
 
         HttpSession session = request.getSession();
-        User user = userSearch.getUserByUsernameAndPassword(username, password);
+        User user = userSearchService.getByUsernameAndPassword(username, password);
 
         if (user == null) {
             request.setAttribute("errorLoginPassMessage", MessageManager.getProperty("message.loginerror"));
@@ -65,37 +59,30 @@ public class LoginAction implements Action{
     }
 
     private void initializeClient(Client client, HttpSession session) {
-        DaoFactory factory = MySqlDaoFactory.getInstance();
-        try(Connection connection = (Connection) factory.getContext())
-        {
-            MySqlOrderDao orderDao = (MySqlOrderDao) factory.getDao(connection, Order.class);
-            MySqlOrderItemDao orderItemDao = (MySqlOrderItemDao) factory.getDao(connection, OrderItem.class);
-            ShopDao shopDao = (ShopDao) factory.getDao(connection, Shop.class);
-            List<Shop> shops = shopDao.getShopsByManager(client.getId());
 
-            Order cart = null;
-            List<Order> orders = orderDao.getByClientId(client.getId());
+        ShopService shopService = new ShopServiceImpl();
+        OrderService orderService = new OrderServiceImpl();
+        OrderItemService orderItemService = new OrderItemServiceImpl();
+        Order cart = null;
 
-            if (orders != null) {
+        List<Shop> shops = shopService.getAllByManager(client.getId());
+        List<Order> orders = orderService.getAllByClient(client.getId());
 
-                for (Order o : orders) {
-                    if (o.getStatus().equals(Status.DRAFT)) {
-                        cart = o;
-                    }
+        if (orders != null) {
+
+            for (Order o : orders) {
+                if (o.getStatus().equals(Status.DRAFT)) {
+                    cart = o;
                 }
-                if (cart != null) {
-                    List<OrderItem> orderItems = orderItemDao.getByOrderId(cart.getId());
-                    if (orderItems != null) {
-                        cart.setItems(orderItems);
-                    }
-                    session.setAttribute("cart", cart);
-                }
-
             }
-            session.setAttribute("shops", shops);
-
-        }catch (SQLException e) {
-            e.printStackTrace();
+            if (cart != null) {
+                List<OrderItem> orderItems = orderItemService.getAllByOrder(cart.getId());
+                if (orderItems != null) {
+                    cart.setItems(orderItems);
+                }
+                session.setAttribute("cart", cart);
+            }
         }
+        session.setAttribute("shops", shops);
     }
 }
