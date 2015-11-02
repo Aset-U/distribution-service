@@ -7,7 +7,6 @@ import org.hibernate.criterion.Restrictions;
 
 public class AdminDaoImpl extends GenericDaoImpl<Admin, Integer> implements AdminDao {
 
-    @Override
     public Admin findByUsernameAndPassword(String username, String password) {
         Admin admin = null;
 

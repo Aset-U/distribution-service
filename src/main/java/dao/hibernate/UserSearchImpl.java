@@ -1,12 +1,11 @@
 package dao.hibernate;
 
 
-import dao.UserDao;
+import dao.UserSearch;
 import models.User;
 
-public class UserDaoImpl implements UserDao{
+public class UserSearchImpl implements UserSearch {
 
-    @Override
     public User findByUsernameAndPassword(String username, String password) {
         return null;
     }

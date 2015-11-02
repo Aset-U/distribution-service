@@ -3,6 +3,6 @@ package dao;
 import models.User;
 
 
-public interface UserDao {
+public interface UserSearch {
     public User findByUsernameAndPassword(String username, String password);
 }

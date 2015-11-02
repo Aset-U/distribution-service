@@ -2,7 +2,7 @@ package action;
 
 
 import dao.ShopDao;
-import dao.UserDao;
+import dao.UserSearch;
 import dao.mysql.MySqlDaoFactory;
 import dao.mysql.MySqlOrderDao;
 import dao.mysql.MySqlOrderItemDao;
@@ -33,10 +33,10 @@ public class LoginAction implements Action{
         String password = request.getParameter(PASSWORD);
         ActionResult result = new ActionResult(page);
 
-        UserDao userDao = new MySqlUserDao();
+        UserSearch userSearch = new MySqlUserDao();
 
         HttpSession session = request.getSession();
-        User user = userDao.getUserByUsernameAndPassword(username, password);
+        User user = userSearch.getUserByUsernameAndPassword(username, password);
 
         if (user == null) {
             request.setAttribute("errorLoginPassMessage", MessageManager.getProperty("message.loginerror"));
