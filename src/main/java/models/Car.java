@@ -1,6 +1,5 @@
 package models;
 
-
 import java.util.List;
 
 public class Car extends AbstractEntity {
@@ -8,7 +7,6 @@ public class Car extends AbstractEntity {
     private String number;
     private String model;
     private List<Forwarder> forwarders;
-
 
     public Car() {
     }
